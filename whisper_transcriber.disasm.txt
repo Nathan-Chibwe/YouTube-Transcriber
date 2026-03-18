@@ -1,0 +1,1161 @@
+  0           0 RESUME                   0
+
+  1           2 LOAD_CONST               0 ('\nwhisper_transcriber.py\n──────────────────────\nDownloads audio from YouTube with yt-dlp and transcribes it\nusing OpenAI Whisper when captions are not available.\n')
+              4 STORE_NAME               0 (__doc__)
+
+  8           6 LOAD_CONST               1 (0)
+              8 LOAD_CONST               2 (None)
+             10 IMPORT_NAME              1 (os)
+             12 STORE_NAME               1 (os)
+
+  9          14 LOAD_CONST               1 (0)
+             16 LOAD_CONST               2 (None)
+             18 IMPORT_NAME              2 (tempfile)
+             20 STORE_NAME               2 (tempfile)
+
+ 10          22 LOAD_CONST               1 (0)
+             24 LOAD_CONST               2 (None)
+             26 IMPORT_NAME              3 (whisper)
+             28 STORE_NAME               3 (whisper)
+
+ 11          30 LOAD_CONST               1 (0)
+             32 LOAD_CONST               2 (None)
+             34 IMPORT_NAME              4 (yt_dlp)
+             36 STORE_NAME               4 (yt_dlp)
+
+ 12          38 LOAD_CONST               1 (0)
+             40 LOAD_CONST               3 (('seconds_to_mmss',))
+             42 IMPORT_NAME              5 (utils)
+             44 IMPORT_FROM              6 (seconds_to_mmss)
+             46 STORE_NAME               6 (seconds_to_mmss)
+             48 POP_TOP
+
+ 15          50 LOAD_CONST               4 ('url')
+             52 LOAD_NAME                7 (str)
+             54 LOAD_CONST               5 ('output_path')
+             56 LOAD_NAME                7 (str)
+             58 LOAD_CONST               6 ('return')
+             60 LOAD_NAME                8 (tuple)
+             62 BUILD_TUPLE              6
+             64 LOAD_CONST               7 (<code object download_audio at 0x0000020437FBC480, file "c:\Users\Musonda Chibwe\Downloads\youtube-transcriber\whisper_transcriber.py", line 15>)
+             66 MAKE_FUNCTION            4 (annotations)
+             68 STORE_NAME               9 (download_audio)
+
+ 47          70 LOAD_CONST               4 ('url')
+             72 LOAD_NAME                7 (str)
+             74 LOAD_CONST               6 ('return')
+             76 LOAD_NAME                8 (tuple)
+             78 BUILD_TUPLE              4
+             80 LOAD_CONST               8 (<code object transcribe_with_whisper at 0x0000020437F82D80, file "c:\Users\Musonda Chibwe\Downloads\youtube-transcriber\whisper_transcriber.py", line 47>)
+             82 MAKE_FUNCTION            4 (annotations)
+             84 STORE_NAME              10 (transcribe_with_whisper)
+             86 LOAD_CONST               2 (None)
+             88 RETURN_VALUE
+
+Disassembly of <code object download_audio at 0x0000020437FBC480, file "c:\Users\Musonda Chibwe\Downloads\youtube-transcriber\whisper_transcriber.py", line 15>:
+ 15           0 RESUME                   0
+
+ 22           2 LOAD_CONST               1 ('bestaudio/best')
+
+ 23           4 LOAD_GLOBAL              0 (os)
+             16 LOAD_ATTR                1 (path)
+             26 LOAD_METHOD              2 (join)
+             48 LOAD_FAST                1 (output_path)
+             50 LOAD_CONST               2 ('audio.%(ext)s')
+             52 PRECALL                  2
+             56 CALL                     2
+
+ 24          66 LOAD_CONST               3 (True)
+
+ 25          68 LOAD_CONST               3 (True)
+
+ 29          70 LOAD_CONST               4 ('FFmpegExtractAudio')
+
+ 30          72 LOAD_CONST               5 ('mp3')
+
+ 31          74 LOAD_CONST               6 ('192')
+
+ 28          76 LOAD_CONST               7 (('key', 'preferredcodec', 'preferredquality'))
+             78 BUILD_CONST_KEY_MAP      3
+
+ 27          80 BUILD_LIST               1
+
+ 21          82 LOAD_CONST               8 (('format', 'outtmpl', 'quiet', 'no_warnings', 'postprocessors'))
+             84 BUILD_CONST_KEY_MAP      5
+             86 STORE_FAST               2 (ydl_opts)
+
+ 36          88 NOP
+
+ 37          90 LOAD_GLOBAL              7 (NULL + yt_dlp)
+            102 LOAD_ATTR                4 (YoutubeDL)
+            112 LOAD_FAST                2 (ydl_opts)
+            114 PRECALL                  1
+            118 CALL                     1
+            128 BEFORE_WITH
+            130 STORE_FAST               3 (ydl)
+
+ 38         132 LOAD_FAST                3 (ydl)
+            134 LOAD_METHOD              5 (download)
+            156 LOAD_FAST                0 (url)
+            158 BUILD_LIST               1
+            160 PRECALL                  1
+            164 CALL                     1
+            174 POP_TOP
+
+ 37         176 LOAD_CONST               9 (None)
+            178 LOAD_CONST               9 (None)
+            180 LOAD_CONST               9 (None)
+            182 PRECALL                  2
+            186 CALL                     2
+            196 POP_TOP
+            198 JUMP_FORWARD            11 (to 222)
+        >>  200 PUSH_EXC_INFO
+            202 WITH_EXCEPT_START
+            204 POP_JUMP_FORWARD_IF_TRUE     4 (to 214)
+            206 RERAISE                  2
+        >>  208 COPY                     3
+            210 POP_EXCEPT
+            212 RERAISE                  1
+        >>  214 POP_TOP
+            216 POP_EXCEPT
+            218 POP_TOP
+            220 POP_TOP
+
+ 39     >>  222 LOAD_GLOBAL              0 (os)
+            234 LOAD_ATTR                1 (path)
+            244 LOAD_METHOD              2 (join)
+            266 LOAD_FAST                1 (output_path)
+            268 LOAD_CONST              10 ('audio.mp3')
+            270 PRECALL                  2
+            274 CALL                     2
+            284 STORE_FAST               4 (audio_file)
+
+ 40         286 LOAD_GLOBAL              0 (os)
+            298 LOAD_ATTR                1 (path)
+            308 LOAD_METHOD              6 (exists)
+            330 LOAD_FAST                4 (audio_file)
+            332 PRECALL                  1
+            336 CALL                     1
+            346 POP_JUMP_FORWARD_IF_TRUE     2 (to 352)
+
+ 41         348 LOAD_CONST              11 (('', 'Audio file not found after download.'))
+            350 RETURN_VALUE
+
+ 42     >>  352 LOAD_FAST                4 (audio_file)
+            354 LOAD_CONST               9 (None)
+            356 BUILD_TUPLE              2
+            358 RETURN_VALUE
+        >>  360 PUSH_EXC_INFO
+
+ 43         362 LOAD_GLOBAL             14 (Exception)
+            374 CHECK_EXC_MATCH
+            376 POP_JUMP_FORWARD_IF_FALSE    17 (to 412)
+            378 STORE_FAST               5 (e)
+
+ 44         380 LOAD_CONST              12 ('')
+            382 LOAD_CONST              13 ('yt-dlp error: ')
+            384 LOAD_FAST                5 (e)
+            386 FORMAT_VALUE             0
+            388 BUILD_STRING             2
+            390 BUILD_TUPLE              2
+            392 SWAP                     2
+            394 POP_EXCEPT
+            396 LOAD_CONST               9 (None)
+            398 STORE_FAST               5 (e)
+            400 DELETE_FAST              5 (e)
+            402 RETURN_VALUE
+        >>  404 LOAD_CONST               9 (None)
+            406 STORE_FAST               5 (e)
+            408 DELETE_FAST              5 (e)
+            410 RERAISE                  1
+
+ 43     >>  412 RERAISE                  0
+        >>  414 COPY                     3
+            416 POP_EXCEPT
+            418 RERAISE                  1
+ExceptionTable:
+  90 to 128 -> 360 [0]
+  130 to 174 -> 200 [1] lasti
+  176 to 198 -> 360 [0]
+  200 to 206 -> 208 [3] lasti
+  208 to 212 -> 360 [0]
+  214 to 214 -> 208 [3] lasti
+  216 to 346 -> 360 [0]
+  352 to 356 -> 360 [0]
+  360 to 378 -> 414 [1] lasti
+  380 to 390 -> 404 [1] lasti
+  392 to 392 -> 414 [1] lasti
+  404 to 412 -> 414 [1] lasti
+
+Disassembly of <code object transcribe_with_whisper at 0x0000020437F82D80, file "c:\Users\Musonda Chibwe\Downloads\youtube-transcriber\whisper_transcriber.py", line 47>:
+ 47           0 RESUME                   0
+
+ 54           2 LOAD_GLOBAL              1 (NULL + tempfile)
+             14 LOAD_ATTR                1 (TemporaryDirectory)
+             24 PRECALL                  0
+             28 CALL                     0
+             38 BEFORE_WITH
+             40 STORE_FAST               1 (tmp_dir)
+
+ 56          42 LOAD_GLOBAL              5 (NULL + download_audio)
+             54 LOAD_FAST                0 (url)
+             56 LOAD_FAST                1 (tmp_dir)
+             58 PRECALL                  2
+             62 CALL                     2
+             72 UNPACK_SEQUENCE          2
+             76 STORE_FAST               2 (audio_path)
+             78 STORE_FAST               3 (error)
+
+ 57          80 LOAD_FAST                3 (error)
+             82 POP_JUMP_FORWARD_IF_FALSE    16 (to 116)
+
+ 58          84 BUILD_LIST               0
+             86 LOAD_FAST                3 (error)
+             88 BUILD_TUPLE              2
+
+ 54          90 SWAP                     2
+             92 LOAD_CONST               1 (None)
+             94 LOAD_CONST               1 (None)
+             96 LOAD_CONST               1 (None)
+             98 PRECALL                  2
+            102 CALL                     2
+            112 POP_TOP
+            114 RETURN_VALUE
+
+ 63     >>  116 NOP
+
+ 64         118 LOAD_GLOBAL              7 (NULL + whisper)
+            130 LOAD_ATTR                4 (load_model)
+            140 LOAD_CONST               2 ('base')
+            142 PRECALL                  1
+            146 CALL                     1
+            156 STORE_FAST               4 (model)
+            158 JUMP_FORWARD            42 (to 244)
+        >>  160 PUSH_EXC_INFO
+
+ 65         162 LOAD_GLOBAL             10 (Exception)
+            174 CHECK_EXC_MATCH
+            176 POP_JUMP_FORWARD_IF_FALSE    29 (to 236)
+            178 STORE_FAST               5 (e)
+
+ 66         180 BUILD_LIST               0
+            182 LOAD_CONST               3 ('Failed to load Whisper model: ')
+            184 LOAD_FAST                5 (e)
+            186 FORMAT_VALUE             0
+            188 BUILD_STRING             2
+            190 BUILD_TUPLE              2
+            192 SWAP                     2
+            194 POP_EXCEPT
+            196 LOAD_CONST               1 (None)
+            198 STORE_FAST               5 (e)
+            200 DELETE_FAST              5 (e)
+
+ 54         202 SWAP                     2
+            204 LOAD_CONST               1 (None)
+            206 LOAD_CONST               1 (None)
+            208 LOAD_CONST               1 (None)
+            210 PRECALL                  2
+            214 CALL                     2
+            224 POP_TOP
+            226 RETURN_VALUE
+        >>  228 LOAD_CONST               1 (None)
+            230 STORE_FAST               5 (e)
+            232 DELETE_FAST              5 (e)
+            234 RERAISE                  1
+
+ 65     >>  236 RERAISE                  0
+        >>  238 COPY                     3
+            240 POP_EXCEPT
+            242 RERAISE                  1
+
+ 69     >>  244 NOP
+
+ 70         246 LOAD_FAST                4 (model)
+            248 LOAD_METHOD              6 (transcribe)
+            270 LOAD_FAST                2 (audio_path)
+            272 LOAD_CONST               4 (False)
+            274 KW_NAMES                 5
+            276 PRECALL                  2
+            280 CALL                     2
+            290 STORE_FAST               6 (result)
+            292 JUMP_FORWARD            42 (to 378)
+        >>  294 PUSH_EXC_INFO
+
+ 71         296 LOAD_GLOBAL             10 (Exception)
+            308 CHECK_EXC_MATCH
+            310 POP_JUMP_FORWARD_IF_FALSE    29 (to 370)
+            312 STORE_FAST               5 (e)
+
+ 72         314 BUILD_LIST               0
+            316 LOAD_CONST               6 ('Whisper transcription failed: ')
+            318 LOAD_FAST                5 (e)
+            320 FORMAT_VALUE             0
+            322 BUILD_STRING             2
+            324 BUILD_TUPLE              2
+            326 SWAP                     2
+            328 POP_EXCEPT
+            330 LOAD_CONST               1 (None)
+            332 STORE_FAST               5 (e)
+            334 DELETE_FAST              5 (e)
+
+ 54         336 SWAP                     2
+            338 LOAD_CONST               1 (None)
+            340 LOAD_CONST               1 (None)
+            342 LOAD_CONST               1 (None)
+            344 PRECALL                  2
+            348 CALL                     2
+            358 POP_TOP
+            360 RETURN_VALUE
+        >>  362 LOAD_CONST               1 (None)
+            364 STORE_FAST               5 (e)
+            366 DELETE_FAST              5 (e)
+            368 RERAISE                  1
+
+ 71     >>  370 RERAISE                  0
+        >>  372 COPY                     3
+            374 POP_EXCEPT
+            376 RERAISE                  1
+
+ 75     >>  378 BUILD_LIST               0
+            380 STORE_FAST               7 (transcript)
+
+ 76         382 LOAD_FAST                6 (result)
+            384 LOAD_METHOD              7 (get)
+            406 LOAD_CONST               7 ('segments')
+            408 BUILD_LIST               0
+            410 PRECALL                  2
+            414 CALL                     2
+            424 GET_ITER
+        >>  426 FOR_ITER                76 (to 580)
+            428 STORE_FAST               8 (segment)
+
+ 77         430 LOAD_FAST                7 (transcript)
+            432 LOAD_METHOD              8 (append)
+
+ 78         454 LOAD_FAST                8 (segment)
+            456 LOAD_CONST               8 ('start')
+            458 BINARY_SUBSCR
+
+ 79         468 LOAD_GLOBAL             19 (NULL + seconds_to_mmss)
+            480 LOAD_FAST                8 (segment)
+            482 LOAD_CONST               8 ('start')
+            484 BINARY_SUBSCR
+            494 PRECALL                  1
+            498 CALL                     1
+
+ 80         508 LOAD_FAST                8 (segment)
+            510 LOAD_CONST               9 ('text')
+            512 BINARY_SUBSCR
+            522 LOAD_METHOD             10 (strip)
+            544 PRECALL                  0
+            548 CALL                     0
+
+ 77         558 LOAD_CONST              10 (('start', 'timestamp', 'text'))
+            560 BUILD_CONST_KEY_MAP      3
+            562 PRECALL                  1
+            566 CALL                     1
+            576 POP_TOP
+            578 JUMP_BACKWARD           77 (to 426)
+
+ 83     >>  580 LOAD_FAST                7 (transcript)
+            582 LOAD_CONST               1 (None)
+            584 BUILD_TUPLE              2
+
+ 54         586 SWAP                     2
+            588 LOAD_CONST               1 (None)
+            590 LOAD_CONST               1 (None)
+            592 LOAD_CONST               1 (None)
+            594 PRECALL                  2
+            598 CALL                     2
+            608 POP_TOP
+            610 RETURN_VALUE
+        >>  612 PUSH_EXC_INFO
+            614 WITH_EXCEPT_START
+            616 POP_JUMP_FORWARD_IF_TRUE     4 (to 626)
+            618 RERAISE                  2
+        >>  620 COPY                     3
+            622 POP_EXCEPT
+            624 RERAISE                  1
+        >>  626 POP_TOP
+            628 POP_EXCEPT
+            630 POP_TOP
+            632 POP_TOP
+            634 LOAD_CONST               1 (None)
+            636 RETURN_VALUE
+ExceptionTable:
+  40 to 88 -> 612 [1] lasti
+  118 to 156 -> 160 [1]
+  158 to 158 -> 612 [1] lasti
+  160 to 178 -> 238 [2] lasti
+  180 to 190 -> 228 [2] lasti
+  192 to 192 -> 238 [2] lasti
+  194 to 200 -> 612 [1] lasti
+  228 to 236 -> 238 [2] lasti
+  238 to 242 -> 612 [1] lasti
+  246 to 290 -> 294 [1]
+  292 to 292 -> 612 [1] lasti
+  294 to 312 -> 372 [2] lasti
+  314 to 324 -> 362 [2] lasti
+  326 to 326 -> 372 [2] lasti
+  328 to 334 -> 612 [1] lasti
+  362 to 370 -> 372 [2] lasti
+  372 to 584 -> 612 [1] lasti
+  612 to 618 -> 620 [3] lasti
+  626 to 626 -> 620 [3] lasti
+
+Code object: <module>, argcount=0, nlocals=0
+  0           0 RESUME                   0
+
+  1           2 LOAD_CONST               0 ('\nwhisper_transcriber.py\n──────────────────────\nDownloads audio from YouTube with yt-dlp and transcribes it\nusing OpenAI Whisper when captions are not available.\n')
+              4 STORE_NAME               0 (__doc__)
+
+  8           6 LOAD_CONST               1 (0)
+              8 LOAD_CONST               2 (None)
+             10 IMPORT_NAME              1 (os)
+             12 STORE_NAME               1 (os)
+
+  9          14 LOAD_CONST               1 (0)
+             16 LOAD_CONST               2 (None)
+             18 IMPORT_NAME              2 (tempfile)
+             20 STORE_NAME               2 (tempfile)
+
+ 10          22 LOAD_CONST               1 (0)
+             24 LOAD_CONST               2 (None)
+             26 IMPORT_NAME              3 (whisper)
+             28 STORE_NAME               3 (whisper)
+
+ 11          30 LOAD_CONST               1 (0)
+             32 LOAD_CONST               2 (None)
+             34 IMPORT_NAME              4 (yt_dlp)
+             36 STORE_NAME               4 (yt_dlp)
+
+ 12          38 LOAD_CONST               1 (0)
+             40 LOAD_CONST               3 (('seconds_to_mmss',))
+             42 IMPORT_NAME              5 (utils)
+             44 IMPORT_FROM              6 (seconds_to_mmss)
+             46 STORE_NAME               6 (seconds_to_mmss)
+             48 POP_TOP
+
+ 15          50 LOAD_CONST               4 ('url')
+             52 LOAD_NAME                7 (str)
+             54 LOAD_CONST               5 ('output_path')
+             56 LOAD_NAME                7 (str)
+             58 LOAD_CONST               6 ('return')
+             60 LOAD_NAME                8 (tuple)
+             62 BUILD_TUPLE              6
+             64 LOAD_CONST               7 (<code object download_audio at 0x0000020437FBC480, file "c:\Users\Musonda Chibwe\Downloads\youtube-transcriber\whisper_transcriber.py", line 15>)
+             66 MAKE_FUNCTION            4 (annotations)
+             68 STORE_NAME               9 (download_audio)
+
+ 47          70 LOAD_CONST               4 ('url')
+             72 LOAD_NAME                7 (str)
+             74 LOAD_CONST               6 ('return')
+             76 LOAD_NAME                8 (tuple)
+             78 BUILD_TUPLE              4
+             80 LOAD_CONST               8 (<code object transcribe_with_whisper at 0x0000020437F82D80, file "c:\Users\Musonda Chibwe\Downloads\youtube-transcriber\whisper_transcriber.py", line 47>)
+             82 MAKE_FUNCTION            4 (annotations)
+             84 STORE_NAME              10 (transcribe_with_whisper)
+             86 LOAD_CONST               2 (None)
+             88 RETURN_VALUE
+
+Disassembly of <code object download_audio at 0x0000020437FBC480, file "c:\Users\Musonda Chibwe\Downloads\youtube-transcriber\whisper_transcriber.py", line 15>:
+ 15           0 RESUME                   0
+
+ 22           2 LOAD_CONST               1 ('bestaudio/best')
+
+ 23           4 LOAD_GLOBAL              0 (os)
+             16 LOAD_ATTR                1 (path)
+             26 LOAD_METHOD              2 (join)
+             48 LOAD_FAST                1 (output_path)
+             50 LOAD_CONST               2 ('audio.%(ext)s')
+             52 PRECALL                  2
+             56 CALL                     2
+
+ 24          66 LOAD_CONST               3 (True)
+
+ 25          68 LOAD_CONST               3 (True)
+
+ 29          70 LOAD_CONST               4 ('FFmpegExtractAudio')
+
+ 30          72 LOAD_CONST               5 ('mp3')
+
+ 31          74 LOAD_CONST               6 ('192')
+
+ 28          76 LOAD_CONST               7 (('key', 'preferredcodec', 'preferredquality'))
+             78 BUILD_CONST_KEY_MAP      3
+
+ 27          80 BUILD_LIST               1
+
+ 21          82 LOAD_CONST               8 (('format', 'outtmpl', 'quiet', 'no_warnings', 'postprocessors'))
+             84 BUILD_CONST_KEY_MAP      5
+             86 STORE_FAST               2 (ydl_opts)
+
+ 36          88 NOP
+
+ 37          90 LOAD_GLOBAL              7 (NULL + yt_dlp)
+            102 LOAD_ATTR                4 (YoutubeDL)
+            112 LOAD_FAST                2 (ydl_opts)
+            114 PRECALL                  1
+            118 CALL                     1
+            128 BEFORE_WITH
+            130 STORE_FAST               3 (ydl)
+
+ 38         132 LOAD_FAST                3 (ydl)
+            134 LOAD_METHOD              5 (download)
+            156 LOAD_FAST                0 (url)
+            158 BUILD_LIST               1
+            160 PRECALL                  1
+            164 CALL                     1
+            174 POP_TOP
+
+ 37         176 LOAD_CONST               9 (None)
+            178 LOAD_CONST               9 (None)
+            180 LOAD_CONST               9 (None)
+            182 PRECALL                  2
+            186 CALL                     2
+            196 POP_TOP
+            198 JUMP_FORWARD            11 (to 222)
+        >>  200 PUSH_EXC_INFO
+            202 WITH_EXCEPT_START
+            204 POP_JUMP_FORWARD_IF_TRUE     4 (to 214)
+            206 RERAISE                  2
+        >>  208 COPY                     3
+            210 POP_EXCEPT
+            212 RERAISE                  1
+        >>  214 POP_TOP
+            216 POP_EXCEPT
+            218 POP_TOP
+            220 POP_TOP
+
+ 39     >>  222 LOAD_GLOBAL              0 (os)
+            234 LOAD_ATTR                1 (path)
+            244 LOAD_METHOD              2 (join)
+            266 LOAD_FAST                1 (output_path)
+            268 LOAD_CONST              10 ('audio.mp3')
+            270 PRECALL                  2
+            274 CALL                     2
+            284 STORE_FAST               4 (audio_file)
+
+ 40         286 LOAD_GLOBAL              0 (os)
+            298 LOAD_ATTR                1 (path)
+            308 LOAD_METHOD              6 (exists)
+            330 LOAD_FAST                4 (audio_file)
+            332 PRECALL                  1
+            336 CALL                     1
+            346 POP_JUMP_FORWARD_IF_TRUE     2 (to 352)
+
+ 41         348 LOAD_CONST              11 (('', 'Audio file not found after download.'))
+            350 RETURN_VALUE
+
+ 42     >>  352 LOAD_FAST                4 (audio_file)
+            354 LOAD_CONST               9 (None)
+            356 BUILD_TUPLE              2
+            358 RETURN_VALUE
+        >>  360 PUSH_EXC_INFO
+
+ 43         362 LOAD_GLOBAL             14 (Exception)
+            374 CHECK_EXC_MATCH
+            376 POP_JUMP_FORWARD_IF_FALSE    17 (to 412)
+            378 STORE_FAST               5 (e)
+
+ 44         380 LOAD_CONST              12 ('')
+            382 LOAD_CONST              13 ('yt-dlp error: ')
+            384 LOAD_FAST                5 (e)
+            386 FORMAT_VALUE             0
+            388 BUILD_STRING             2
+            390 BUILD_TUPLE              2
+            392 SWAP                     2
+            394 POP_EXCEPT
+            396 LOAD_CONST               9 (None)
+            398 STORE_FAST               5 (e)
+            400 DELETE_FAST              5 (e)
+            402 RETURN_VALUE
+        >>  404 LOAD_CONST               9 (None)
+            406 STORE_FAST               5 (e)
+            408 DELETE_FAST              5 (e)
+            410 RERAISE                  1
+
+ 43     >>  412 RERAISE                  0
+        >>  414 COPY                     3
+            416 POP_EXCEPT
+            418 RERAISE                  1
+ExceptionTable:
+  90 to 128 -> 360 [0]
+  130 to 174 -> 200 [1] lasti
+  176 to 198 -> 360 [0]
+  200 to 206 -> 208 [3] lasti
+  208 to 212 -> 360 [0]
+  214 to 214 -> 208 [3] lasti
+  216 to 346 -> 360 [0]
+  352 to 356 -> 360 [0]
+  360 to 378 -> 414 [1] lasti
+  380 to 390 -> 404 [1] lasti
+  392 to 392 -> 414 [1] lasti
+  404 to 412 -> 414 [1] lasti
+
+Disassembly of <code object transcribe_with_whisper at 0x0000020437F82D80, file "c:\Users\Musonda Chibwe\Downloads\youtube-transcriber\whisper_transcriber.py", line 47>:
+ 47           0 RESUME                   0
+
+ 54           2 LOAD_GLOBAL              1 (NULL + tempfile)
+             14 LOAD_ATTR                1 (TemporaryDirectory)
+             24 PRECALL                  0
+             28 CALL                     0
+             38 BEFORE_WITH
+             40 STORE_FAST               1 (tmp_dir)
+
+ 56          42 LOAD_GLOBAL              5 (NULL + download_audio)
+             54 LOAD_FAST                0 (url)
+             56 LOAD_FAST                1 (tmp_dir)
+             58 PRECALL                  2
+             62 CALL                     2
+             72 UNPACK_SEQUENCE          2
+             76 STORE_FAST               2 (audio_path)
+             78 STORE_FAST               3 (error)
+
+ 57          80 LOAD_FAST                3 (error)
+             82 POP_JUMP_FORWARD_IF_FALSE    16 (to 116)
+
+ 58          84 BUILD_LIST               0
+             86 LOAD_FAST                3 (error)
+             88 BUILD_TUPLE              2
+
+ 54          90 SWAP                     2
+             92 LOAD_CONST               1 (None)
+             94 LOAD_CONST               1 (None)
+             96 LOAD_CONST               1 (None)
+             98 PRECALL                  2
+            102 CALL                     2
+            112 POP_TOP
+            114 RETURN_VALUE
+
+ 63     >>  116 NOP
+
+ 64         118 LOAD_GLOBAL              7 (NULL + whisper)
+            130 LOAD_ATTR                4 (load_model)
+            140 LOAD_CONST               2 ('base')
+            142 PRECALL                  1
+            146 CALL                     1
+            156 STORE_FAST               4 (model)
+            158 JUMP_FORWARD            42 (to 244)
+        >>  160 PUSH_EXC_INFO
+
+ 65         162 LOAD_GLOBAL             10 (Exception)
+            174 CHECK_EXC_MATCH
+            176 POP_JUMP_FORWARD_IF_FALSE    29 (to 236)
+            178 STORE_FAST               5 (e)
+
+ 66         180 BUILD_LIST               0
+            182 LOAD_CONST               3 ('Failed to load Whisper model: ')
+            184 LOAD_FAST                5 (e)
+            186 FORMAT_VALUE             0
+            188 BUILD_STRING             2
+            190 BUILD_TUPLE              2
+            192 SWAP                     2
+            194 POP_EXCEPT
+            196 LOAD_CONST               1 (None)
+            198 STORE_FAST               5 (e)
+            200 DELETE_FAST              5 (e)
+
+ 54         202 SWAP                     2
+            204 LOAD_CONST               1 (None)
+            206 LOAD_CONST               1 (None)
+            208 LOAD_CONST               1 (None)
+            210 PRECALL                  2
+            214 CALL                     2
+            224 POP_TOP
+            226 RETURN_VALUE
+        >>  228 LOAD_CONST               1 (None)
+            230 STORE_FAST               5 (e)
+            232 DELETE_FAST              5 (e)
+            234 RERAISE                  1
+
+ 65     >>  236 RERAISE                  0
+        >>  238 COPY                     3
+            240 POP_EXCEPT
+            242 RERAISE                  1
+
+ 69     >>  244 NOP
+
+ 70         246 LOAD_FAST                4 (model)
+            248 LOAD_METHOD              6 (transcribe)
+            270 LOAD_FAST                2 (audio_path)
+            272 LOAD_CONST               4 (False)
+            274 KW_NAMES                 5
+            276 PRECALL                  2
+            280 CALL                     2
+            290 STORE_FAST               6 (result)
+            292 JUMP_FORWARD            42 (to 378)
+        >>  294 PUSH_EXC_INFO
+
+ 71         296 LOAD_GLOBAL             10 (Exception)
+            308 CHECK_EXC_MATCH
+            310 POP_JUMP_FORWARD_IF_FALSE    29 (to 370)
+            312 STORE_FAST               5 (e)
+
+ 72         314 BUILD_LIST               0
+            316 LOAD_CONST               6 ('Whisper transcription failed: ')
+            318 LOAD_FAST                5 (e)
+            320 FORMAT_VALUE             0
+            322 BUILD_STRING             2
+            324 BUILD_TUPLE              2
+            326 SWAP                     2
+            328 POP_EXCEPT
+            330 LOAD_CONST               1 (None)
+            332 STORE_FAST               5 (e)
+            334 DELETE_FAST              5 (e)
+
+ 54         336 SWAP                     2
+            338 LOAD_CONST               1 (None)
+            340 LOAD_CONST               1 (None)
+            342 LOAD_CONST               1 (None)
+            344 PRECALL                  2
+            348 CALL                     2
+            358 POP_TOP
+            360 RETURN_VALUE
+        >>  362 LOAD_CONST               1 (None)
+            364 STORE_FAST               5 (e)
+            366 DELETE_FAST              5 (e)
+            368 RERAISE                  1
+
+ 71     >>  370 RERAISE                  0
+        >>  372 COPY                     3
+            374 POP_EXCEPT
+            376 RERAISE                  1
+
+ 75     >>  378 BUILD_LIST               0
+            380 STORE_FAST               7 (transcript)
+
+ 76         382 LOAD_FAST                6 (result)
+            384 LOAD_METHOD              7 (get)
+            406 LOAD_CONST               7 ('segments')
+            408 BUILD_LIST               0
+            410 PRECALL                  2
+            414 CALL                     2
+            424 GET_ITER
+        >>  426 FOR_ITER                76 (to 580)
+            428 STORE_FAST               8 (segment)
+
+ 77         430 LOAD_FAST                7 (transcript)
+            432 LOAD_METHOD              8 (append)
+
+ 78         454 LOAD_FAST                8 (segment)
+            456 LOAD_CONST               8 ('start')
+            458 BINARY_SUBSCR
+
+ 79         468 LOAD_GLOBAL             19 (NULL + seconds_to_mmss)
+            480 LOAD_FAST                8 (segment)
+            482 LOAD_CONST               8 ('start')
+            484 BINARY_SUBSCR
+            494 PRECALL                  1
+            498 CALL                     1
+
+ 80         508 LOAD_FAST                8 (segment)
+            510 LOAD_CONST               9 ('text')
+            512 BINARY_SUBSCR
+            522 LOAD_METHOD             10 (strip)
+            544 PRECALL                  0
+            548 CALL                     0
+
+ 77         558 LOAD_CONST              10 (('start', 'timestamp', 'text'))
+            560 BUILD_CONST_KEY_MAP      3
+            562 PRECALL                  1
+            566 CALL                     1
+            576 POP_TOP
+            578 JUMP_BACKWARD           77 (to 426)
+
+ 83     >>  580 LOAD_FAST                7 (transcript)
+            582 LOAD_CONST               1 (None)
+            584 BUILD_TUPLE              2
+
+ 54         586 SWAP                     2
+            588 LOAD_CONST               1 (None)
+            590 LOAD_CONST               1 (None)
+            592 LOAD_CONST               1 (None)
+            594 PRECALL                  2
+            598 CALL                     2
+            608 POP_TOP
+            610 RETURN_VALUE
+        >>  612 PUSH_EXC_INFO
+            614 WITH_EXCEPT_START
+            616 POP_JUMP_FORWARD_IF_TRUE     4 (to 626)
+            618 RERAISE                  2
+        >>  620 COPY                     3
+            622 POP_EXCEPT
+            624 RERAISE                  1
+        >>  626 POP_TOP
+            628 POP_EXCEPT
+            630 POP_TOP
+            632 POP_TOP
+            634 LOAD_CONST               1 (None)
+            636 RETURN_VALUE
+ExceptionTable:
+  40 to 88 -> 612 [1] lasti
+  118 to 156 -> 160 [1]
+  158 to 158 -> 612 [1] lasti
+  160 to 178 -> 238 [2] lasti
+  180 to 190 -> 228 [2] lasti
+  192 to 192 -> 238 [2] lasti
+  194 to 200 -> 612 [1] lasti
+  228 to 236 -> 238 [2] lasti
+  238 to 242 -> 612 [1] lasti
+  246 to 290 -> 294 [1]
+  292 to 292 -> 612 [1] lasti
+  294 to 312 -> 372 [2] lasti
+  314 to 324 -> 362 [2] lasti
+  326 to 326 -> 372 [2] lasti
+  328 to 334 -> 612 [1] lasti
+  362 to 370 -> 372 [2] lasti
+  372 to 584 -> 612 [1] lasti
+  612 to 618 -> 620 [3] lasti
+  626 to 626 -> 620 [3] lasti
+
+  Code object: download_audio, argcount=2, nlocals=6
+ 15           0 RESUME                   0
+
+ 22           2 LOAD_CONST               1 ('bestaudio/best')
+
+ 23           4 LOAD_GLOBAL              0 (os)
+             16 LOAD_ATTR                1 (path)
+             26 LOAD_METHOD              2 (join)
+             48 LOAD_FAST                1 (output_path)
+             50 LOAD_CONST               2 ('audio.%(ext)s')
+             52 PRECALL                  2
+             56 CALL                     2
+
+ 24          66 LOAD_CONST               3 (True)
+
+ 25          68 LOAD_CONST               3 (True)
+
+ 29          70 LOAD_CONST               4 ('FFmpegExtractAudio')
+
+ 30          72 LOAD_CONST               5 ('mp3')
+
+ 31          74 LOAD_CONST               6 ('192')
+
+ 28          76 LOAD_CONST               7 (('key', 'preferredcodec', 'preferredquality'))
+             78 BUILD_CONST_KEY_MAP      3
+
+ 27          80 BUILD_LIST               1
+
+ 21          82 LOAD_CONST               8 (('format', 'outtmpl', 'quiet', 'no_warnings', 'postprocessors'))
+             84 BUILD_CONST_KEY_MAP      5
+             86 STORE_FAST               2 (ydl_opts)
+
+ 36          88 NOP
+
+ 37          90 LOAD_GLOBAL              7 (NULL + yt_dlp)
+            102 LOAD_ATTR                4 (YoutubeDL)
+            112 LOAD_FAST                2 (ydl_opts)
+            114 PRECALL                  1
+            118 CALL                     1
+            128 BEFORE_WITH
+            130 STORE_FAST               3 (ydl)
+
+ 38         132 LOAD_FAST                3 (ydl)
+            134 LOAD_METHOD              5 (download)
+            156 LOAD_FAST                0 (url)
+            158 BUILD_LIST               1
+            160 PRECALL                  1
+            164 CALL                     1
+            174 POP_TOP
+
+ 37         176 LOAD_CONST               9 (None)
+            178 LOAD_CONST               9 (None)
+            180 LOAD_CONST               9 (None)
+            182 PRECALL                  2
+            186 CALL                     2
+            196 POP_TOP
+            198 JUMP_FORWARD            11 (to 222)
+        >>  200 PUSH_EXC_INFO
+            202 WITH_EXCEPT_START
+            204 POP_JUMP_FORWARD_IF_TRUE     4 (to 214)
+            206 RERAISE                  2
+        >>  208 COPY                     3
+            210 POP_EXCEPT
+            212 RERAISE                  1
+        >>  214 POP_TOP
+            216 POP_EXCEPT
+            218 POP_TOP
+            220 POP_TOP
+
+ 39     >>  222 LOAD_GLOBAL              0 (os)
+            234 LOAD_ATTR                1 (path)
+            244 LOAD_METHOD              2 (join)
+            266 LOAD_FAST                1 (output_path)
+            268 LOAD_CONST              10 ('audio.mp3')
+            270 PRECALL                  2
+            274 CALL                     2
+            284 STORE_FAST               4 (audio_file)
+
+ 40         286 LOAD_GLOBAL              0 (os)
+            298 LOAD_ATTR                1 (path)
+            308 LOAD_METHOD              6 (exists)
+            330 LOAD_FAST                4 (audio_file)
+            332 PRECALL                  1
+            336 CALL                     1
+            346 POP_JUMP_FORWARD_IF_TRUE     2 (to 352)
+
+ 41         348 LOAD_CONST              11 (('', 'Audio file not found after download.'))
+            350 RETURN_VALUE
+
+ 42     >>  352 LOAD_FAST                4 (audio_file)
+            354 LOAD_CONST               9 (None)
+            356 BUILD_TUPLE              2
+            358 RETURN_VALUE
+        >>  360 PUSH_EXC_INFO
+
+ 43         362 LOAD_GLOBAL             14 (Exception)
+            374 CHECK_EXC_MATCH
+            376 POP_JUMP_FORWARD_IF_FALSE    17 (to 412)
+            378 STORE_FAST               5 (e)
+
+ 44         380 LOAD_CONST              12 ('')
+            382 LOAD_CONST              13 ('yt-dlp error: ')
+            384 LOAD_FAST                5 (e)
+            386 FORMAT_VALUE             0
+            388 BUILD_STRING             2
+            390 BUILD_TUPLE              2
+            392 SWAP                     2
+            394 POP_EXCEPT
+            396 LOAD_CONST               9 (None)
+            398 STORE_FAST               5 (e)
+            400 DELETE_FAST              5 (e)
+            402 RETURN_VALUE
+        >>  404 LOAD_CONST               9 (None)
+            406 STORE_FAST               5 (e)
+            408 DELETE_FAST              5 (e)
+            410 RERAISE                  1
+
+ 43     >>  412 RERAISE                  0
+        >>  414 COPY                     3
+            416 POP_EXCEPT
+            418 RERAISE                  1
+ExceptionTable:
+  90 to 128 -> 360 [0]
+  130 to 174 -> 200 [1] lasti
+  176 to 198 -> 360 [0]
+  200 to 206 -> 208 [3] lasti
+  208 to 212 -> 360 [0]
+  214 to 214 -> 208 [3] lasti
+  216 to 346 -> 360 [0]
+  352 to 356 -> 360 [0]
+  360 to 378 -> 414 [1] lasti
+  380 to 390 -> 404 [1] lasti
+  392 to 392 -> 414 [1] lasti
+  404 to 412 -> 414 [1] lasti
+
+  Code object: transcribe_with_whisper, argcount=1, nlocals=9
+ 47           0 RESUME                   0
+
+ 54           2 LOAD_GLOBAL              1 (NULL + tempfile)
+             14 LOAD_ATTR                1 (TemporaryDirectory)
+             24 PRECALL                  0
+             28 CALL                     0
+             38 BEFORE_WITH
+             40 STORE_FAST               1 (tmp_dir)
+
+ 56          42 LOAD_GLOBAL              5 (NULL + download_audio)
+             54 LOAD_FAST                0 (url)
+             56 LOAD_FAST                1 (tmp_dir)
+             58 PRECALL                  2
+             62 CALL                     2
+             72 UNPACK_SEQUENCE          2
+             76 STORE_FAST               2 (audio_path)
+             78 STORE_FAST               3 (error)
+
+ 57          80 LOAD_FAST                3 (error)
+             82 POP_JUMP_FORWARD_IF_FALSE    16 (to 116)
+
+ 58          84 BUILD_LIST               0
+             86 LOAD_FAST                3 (error)
+             88 BUILD_TUPLE              2
+
+ 54          90 SWAP                     2
+             92 LOAD_CONST               1 (None)
+             94 LOAD_CONST               1 (None)
+             96 LOAD_CONST               1 (None)
+             98 PRECALL                  2
+            102 CALL                     2
+            112 POP_TOP
+            114 RETURN_VALUE
+
+ 63     >>  116 NOP
+
+ 64         118 LOAD_GLOBAL              7 (NULL + whisper)
+            130 LOAD_ATTR                4 (load_model)
+            140 LOAD_CONST               2 ('base')
+            142 PRECALL                  1
+            146 CALL                     1
+            156 STORE_FAST               4 (model)
+            158 JUMP_FORWARD            42 (to 244)
+        >>  160 PUSH_EXC_INFO
+
+ 65         162 LOAD_GLOBAL             10 (Exception)
+            174 CHECK_EXC_MATCH
+            176 POP_JUMP_FORWARD_IF_FALSE    29 (to 236)
+            178 STORE_FAST               5 (e)
+
+ 66         180 BUILD_LIST               0
+            182 LOAD_CONST               3 ('Failed to load Whisper model: ')
+            184 LOAD_FAST                5 (e)
+            186 FORMAT_VALUE             0
+            188 BUILD_STRING             2
+            190 BUILD_TUPLE              2
+            192 SWAP                     2
+            194 POP_EXCEPT
+            196 LOAD_CONST               1 (None)
+            198 STORE_FAST               5 (e)
+            200 DELETE_FAST              5 (e)
+
+ 54         202 SWAP                     2
+            204 LOAD_CONST               1 (None)
+            206 LOAD_CONST               1 (None)
+            208 LOAD_CONST               1 (None)
+            210 PRECALL                  2
+            214 CALL                     2
+            224 POP_TOP
+            226 RETURN_VALUE
+        >>  228 LOAD_CONST               1 (None)
+            230 STORE_FAST               5 (e)
+            232 DELETE_FAST              5 (e)
+            234 RERAISE                  1
+
+ 65     >>  236 RERAISE                  0
+        >>  238 COPY                     3
+            240 POP_EXCEPT
+            242 RERAISE                  1
+
+ 69     >>  244 NOP
+
+ 70         246 LOAD_FAST                4 (model)
+            248 LOAD_METHOD              6 (transcribe)
+            270 LOAD_FAST                2 (audio_path)
+            272 LOAD_CONST               4 (False)
+            274 KW_NAMES                 5
+            276 PRECALL                  2
+            280 CALL                     2
+            290 STORE_FAST               6 (result)
+            292 JUMP_FORWARD            42 (to 378)
+        >>  294 PUSH_EXC_INFO
+
+ 71         296 LOAD_GLOBAL             10 (Exception)
+            308 CHECK_EXC_MATCH
+            310 POP_JUMP_FORWARD_IF_FALSE    29 (to 370)
+            312 STORE_FAST               5 (e)
+
+ 72         314 BUILD_LIST               0
+            316 LOAD_CONST               6 ('Whisper transcription failed: ')
+            318 LOAD_FAST                5 (e)
+            320 FORMAT_VALUE             0
+            322 BUILD_STRING             2
+            324 BUILD_TUPLE              2
+            326 SWAP                     2
+            328 POP_EXCEPT
+            330 LOAD_CONST               1 (None)
+            332 STORE_FAST               5 (e)
+            334 DELETE_FAST              5 (e)
+
+ 54         336 SWAP                     2
+            338 LOAD_CONST               1 (None)
+            340 LOAD_CONST               1 (None)
+            342 LOAD_CONST               1 (None)
+            344 PRECALL                  2
+            348 CALL                     2
+            358 POP_TOP
+            360 RETURN_VALUE
+        >>  362 LOAD_CONST               1 (None)
+            364 STORE_FAST               5 (e)
+            366 DELETE_FAST              5 (e)
+            368 RERAISE                  1
+
+ 71     >>  370 RERAISE                  0
+        >>  372 COPY                     3
+            374 POP_EXCEPT
+            376 RERAISE                  1
+
+ 75     >>  378 BUILD_LIST               0
+            380 STORE_FAST               7 (transcript)
+
+ 76         382 LOAD_FAST                6 (result)
+            384 LOAD_METHOD              7 (get)
+            406 LOAD_CONST               7 ('segments')
+            408 BUILD_LIST               0
+            410 PRECALL                  2
+            414 CALL                     2
+            424 GET_ITER
+        >>  426 FOR_ITER                76 (to 580)
+            428 STORE_FAST               8 (segment)
+
+ 77         430 LOAD_FAST                7 (transcript)
+            432 LOAD_METHOD              8 (append)
+
+ 78         454 LOAD_FAST                8 (segment)
+            456 LOAD_CONST               8 ('start')
+            458 BINARY_SUBSCR
+
+ 79         468 LOAD_GLOBAL             19 (NULL + seconds_to_mmss)
+            480 LOAD_FAST                8 (segment)
+            482 LOAD_CONST               8 ('start')
+            484 BINARY_SUBSCR
+            494 PRECALL                  1
+            498 CALL                     1
+
+ 80         508 LOAD_FAST                8 (segment)
+            510 LOAD_CONST               9 ('text')
+            512 BINARY_SUBSCR
+            522 LOAD_METHOD             10 (strip)
+            544 PRECALL                  0
+            548 CALL                     0
+
+ 77         558 LOAD_CONST              10 (('start', 'timestamp', 'text'))
+            560 BUILD_CONST_KEY_MAP      3
+            562 PRECALL                  1
+            566 CALL                     1
+            576 POP_TOP
+            578 JUMP_BACKWARD           77 (to 426)
+
+ 83     >>  580 LOAD_FAST                7 (transcript)
+            582 LOAD_CONST               1 (None)
+            584 BUILD_TUPLE              2
+
+ 54         586 SWAP                     2
+            588 LOAD_CONST               1 (None)
+            590 LOAD_CONST               1 (None)
+            592 LOAD_CONST               1 (None)
+            594 PRECALL                  2
+            598 CALL                     2
+            608 POP_TOP
+            610 RETURN_VALUE
+        >>  612 PUSH_EXC_INFO
+            614 WITH_EXCEPT_START
+            616 POP_JUMP_FORWARD_IF_TRUE     4 (to 626)
+            618 RERAISE                  2
+        >>  620 COPY                     3
+            622 POP_EXCEPT
+            624 RERAISE                  1
+        >>  626 POP_TOP
+            628 POP_EXCEPT
+            630 POP_TOP
+            632 POP_TOP
+            634 LOAD_CONST               1 (None)
+            636 RETURN_VALUE
+ExceptionTable:
+  40 to 88 -> 612 [1] lasti
+  118 to 156 -> 160 [1]
+  158 to 158 -> 612 [1] lasti
+  160 to 178 -> 238 [2] lasti
+  180 to 190 -> 228 [2] lasti
+  192 to 192 -> 238 [2] lasti
+  194 to 200 -> 612 [1] lasti
+  228 to 236 -> 238 [2] lasti
+  238 to 242 -> 612 [1] lasti
+  246 to 290 -> 294 [1]
+  292 to 292 -> 612 [1] lasti
+  294 to 312 -> 372 [2] lasti
+  314 to 324 -> 362 [2] lasti
+  326 to 326 -> 372 [2] lasti
+  328 to 334 -> 612 [1] lasti
+  362 to 370 -> 372 [2] lasti
+  372 to 584 -> 612 [1] lasti
+  612 to 618 -> 620 [3] lasti
+  626 to 626 -> 620 [3] lasti

@@ -1,0 +1,600 @@
+  0           0 RESUME                   0
+
+  1           2 LOAD_CONST               0 ('\nutils.py\n────────\nShared utility functions used across the project.\n')
+              4 STORE_NAME               0 (__doc__)
+
+  7           6 LOAD_CONST               1 (0)
+              8 LOAD_CONST               2 (None)
+             10 IMPORT_NAME              1 (re)
+             12 STORE_NAME               1 (re)
+
+ 11          14 BUILD_LIST               0
+             16 LOAD_CONST               3 (('(?:v=)([A-Za-z0-9_\\-]{11})', '(?:youtu\\.be/)([A-Za-z0-9_\\-]{11})', '(?:embed/)([A-Za-z0-9_\\-]{11})', '(?:shorts/)([A-Za-z0-9_\\-]{11})'))
+             18 LIST_EXTEND              1
+             20 STORE_NAME               2 (_YT_PATTERNS)
+
+ 19          22 LOAD_CONST               4 ('url')
+             24 LOAD_NAME                3 (str)
+             26 BUILD_TUPLE              2
+             28 LOAD_CONST               5 (<code object extract_video_id at 0x00000204380F50D0, file "c:\Users\Musonda Chibwe\Downloads\youtube-transcriber\utils.py", line 19>)
+             30 MAKE_FUNCTION            4 (annotations)
+             32 STORE_NAME               4 (extract_video_id)
+
+ 32          34 LOAD_CONST               6 ('seconds')
+             36 LOAD_NAME                5 (float)
+             38 LOAD_CONST               7 ('return')
+             40 LOAD_NAME                3 (str)
+             42 BUILD_TUPLE              4
+             44 LOAD_CONST               8 (<code object seconds_to_mmss at 0x000002043813CB30, file "c:\Users\Musonda Chibwe\Downloads\youtube-transcriber\utils.py", line 32>)
+             46 MAKE_FUNCTION            4 (annotations)
+             48 STORE_NAME               6 (seconds_to_mmss)
+
+ 49          50 LOAD_CONST               9 ('transcript')
+             52 LOAD_NAME                7 (list)
+             54 LOAD_CONST               7 ('return')
+             56 LOAD_NAME                7 (list)
+             58 BUILD_TUPLE              4
+             60 LOAD_CONST              10 (<code object format_transcript_display at 0x0000020437B474B0, file "c:\Users\Musonda Chibwe\Downloads\youtube-transcriber\utils.py", line 49>)
+             62 MAKE_FUNCTION            4 (annotations)
+             64 STORE_NAME               8 (format_transcript_display)
+
+ 71          66 LOAD_CONST              15 ((50,))
+             68 LOAD_CONST              12 ('text')
+             70 LOAD_NAME                3 (str)
+             72 LOAD_CONST              13 ('max_words')
+             74 LOAD_NAME                9 (int)
+             76 LOAD_CONST               7 ('return')
+             78 LOAD_NAME                7 (list)
+             80 BUILD_TUPLE              6
+             82 LOAD_CONST              14 (<code object chunk_text at 0x0000020437D835D0, file "c:\Users\Musonda Chibwe\Downloads\youtube-transcriber\utils.py", line 71>)
+             84 MAKE_FUNCTION            5 (defaults, annotations)
+             86 STORE_NAME              10 (chunk_text)
+             88 LOAD_CONST               2 (None)
+             90 RETURN_VALUE
+
+Disassembly of <code object extract_video_id at 0x00000204380F50D0, file "c:\Users\Musonda Chibwe\Downloads\youtube-transcriber\utils.py", line 19>:
+ 19           0 RESUME                   0
+
+ 25           2 LOAD_GLOBAL              0 (_YT_PATTERNS)
+             14 GET_ITER
+        >>   16 FOR_ITER                48 (to 114)
+             18 STORE_FAST               1 (pattern)
+
+ 26          20 LOAD_GLOBAL              3 (NULL + re)
+             32 LOAD_ATTR                2 (search)
+             42 LOAD_FAST                1 (pattern)
+             44 LOAD_FAST                0 (url)
+             46 PRECALL                  2
+             50 CALL                     2
+             60 STORE_FAST               2 (match)
+
+ 27          62 LOAD_FAST                2 (match)
+             64 POP_JUMP_FORWARD_IF_FALSE    23 (to 112)
+
+ 28          66 LOAD_FAST                2 (match)
+             68 LOAD_METHOD              3 (group)
+             90 LOAD_CONST               1 (1)
+             92 PRECALL                  1
+             96 CALL                     1
+            106 SWAP                     2
+            108 POP_TOP
+            110 RETURN_VALUE
+
+ 27     >>  112 JUMP_BACKWARD           49 (to 16)
+
+ 29     >>  114 LOAD_CONST               2 (None)
+            116 RETURN_VALUE
+
+Disassembly of <code object seconds_to_mmss at 0x000002043813CB30, file "c:\Users\Musonda Chibwe\Downloads\youtube-transcriber\utils.py", line 32>:
+ 32           0 RESUME                   0
+
+ 43           2 LOAD_GLOBAL              1 (NULL + int)
+             14 LOAD_FAST                0 (seconds)
+             16 PRECALL                  1
+             20 CALL                     1
+             30 STORE_FAST               1 (total_seconds)
+
+ 44          32 LOAD_FAST                1 (total_seconds)
+             34 LOAD_CONST               1 (60)
+             36 BINARY_OP                2 (//)
+             40 STORE_FAST               2 (minutes)
+
+ 45          42 LOAD_FAST                1 (total_seconds)
+             44 LOAD_CONST               1 (60)
+             46 BINARY_OP                6 (%)
+             50 STORE_FAST               3 (secs)
+
+ 46          52 LOAD_FAST                2 (minutes)
+             54 LOAD_CONST               2 ('02d')
+             56 FORMAT_VALUE             4 (with format)
+             58 LOAD_CONST               3 (':')
+             60 LOAD_FAST                3 (secs)
+             62 LOAD_CONST               2 ('02d')
+             64 FORMAT_VALUE             4 (with format)
+             66 BUILD_STRING             3
+             68 RETURN_VALUE
+
+Disassembly of <code object format_transcript_display at 0x0000020437B474B0, file "c:\Users\Musonda Chibwe\Downloads\youtube-transcriber\utils.py", line 49>:
+ 49           0 RESUME                   0
+
+ 61           2 BUILD_LIST               0
+              4 STORE_FAST               1 (formatted)
+
+ 62           6 LOAD_FAST                0 (transcript)
+              8 GET_ITER
+        >>   10 FOR_ITER               138 (to 288)
+             12 STORE_FAST               2 (entry)
+
+ 63          14 LOAD_FAST                1 (formatted)
+             16 LOAD_METHOD              0 (append)
+
+ 64          38 LOAD_FAST                2 (entry)
+             40 LOAD_METHOD              1 (get)
+             62 LOAD_CONST               1 ('start')
+             64 LOAD_CONST               2 (0)
+             66 PRECALL                  2
+             70 CALL                     2
+
+ 65          80 LOAD_FAST                2 (entry)
+             82 LOAD_METHOD              1 (get)
+            104 LOAD_CONST               3 ('timestamp')
+            106 LOAD_GLOBAL              5 (NULL + seconds_to_mmss)
+            118 LOAD_FAST                2 (entry)
+            120 LOAD_METHOD              1 (get)
+            142 LOAD_CONST               1 ('start')
+            144 LOAD_CONST               2 (0)
+            146 PRECALL                  2
+            150 CALL                     2
+            160 PRECALL                  1
+            164 CALL                     1
+            174 PRECALL                  2
+            178 CALL                     2
+
+ 66         188 LOAD_FAST                2 (entry)
+            190 LOAD_METHOD              1 (get)
+            212 LOAD_CONST               4 ('text')
+            214 LOAD_CONST               5 ('')
+            216 PRECALL                  2
+            220 CALL                     2
+            230 LOAD_METHOD              3 (strip)
+            252 PRECALL                  0
+            256 CALL                     0
+
+ 63         266 LOAD_CONST               6 (('start', 'timestamp', 'text'))
+            268 BUILD_CONST_KEY_MAP      3
+            270 PRECALL                  1
+            274 CALL                     1
+            284 POP_TOP
+            286 JUMP_BACKWARD          139 (to 10)
+
+ 68     >>  288 LOAD_FAST                1 (formatted)
+            290 RETURN_VALUE
+
+Disassembly of <code object chunk_text at 0x0000020437D835D0, file "c:\Users\Musonda Chibwe\Downloads\youtube-transcriber\utils.py", line 71>:
+ 71           0 RESUME                   0
+
+ 76           2 LOAD_FAST                0 (text)
+              4 LOAD_METHOD              0 (split)
+             26 PRECALL                  0
+             30 CALL                     0
+             40 STORE_FAST               2 (words)
+
+ 77          42 BUILD_LIST               0
+             44 STORE_FAST               3 (chunks)
+
+ 78          46 LOAD_GLOBAL              3 (NULL + range)
+             58 LOAD_CONST               1 (0)
+             60 LOAD_GLOBAL              5 (NULL + len)
+             72 LOAD_FAST                2 (words)
+             74 PRECALL                  1
+             78 CALL                     1
+             88 LOAD_FAST                1 (max_words)
+             90 PRECALL                  3
+             94 CALL                     3
+            104 GET_ITER
+        >>  106 FOR_ITER                53 (to 214)
+            108 STORE_FAST               4 (i)
+
+ 79         110 LOAD_FAST                3 (chunks)
+            112 LOAD_METHOD              3 (append)
+            134 LOAD_CONST               2 (' ')
+            136 LOAD_METHOD              4 (join)
+            158 LOAD_FAST                2 (words)
+            160 LOAD_FAST                4 (i)
+            162 LOAD_FAST                4 (i)
+            164 LOAD_FAST                1 (max_words)
+            166 BINARY_OP                0 (+)
+            170 BUILD_SLICE              2
+            172 BINARY_SUBSCR
+            182 PRECALL                  1
+            186 CALL                     1
+            196 PRECALL                  1
+            200 CALL                     1
+            210 POP_TOP
+            212 JUMP_BACKWARD           54 (to 106)
+
+ 80     >>  214 LOAD_FAST                3 (chunks)
+            216 RETURN_VALUE
+
+Code object: <module>, argcount=0, nlocals=0
+  0           0 RESUME                   0
+
+  1           2 LOAD_CONST               0 ('\nutils.py\n────────\nShared utility functions used across the project.\n')
+              4 STORE_NAME               0 (__doc__)
+
+  7           6 LOAD_CONST               1 (0)
+              8 LOAD_CONST               2 (None)
+             10 IMPORT_NAME              1 (re)
+             12 STORE_NAME               1 (re)
+
+ 11          14 BUILD_LIST               0
+             16 LOAD_CONST               3 (('(?:v=)([A-Za-z0-9_\\-]{11})', '(?:youtu\\.be/)([A-Za-z0-9_\\-]{11})', '(?:embed/)([A-Za-z0-9_\\-]{11})', '(?:shorts/)([A-Za-z0-9_\\-]{11})'))
+             18 LIST_EXTEND              1
+             20 STORE_NAME               2 (_YT_PATTERNS)
+
+ 19          22 LOAD_CONST               4 ('url')
+             24 LOAD_NAME                3 (str)
+             26 BUILD_TUPLE              2
+             28 LOAD_CONST               5 (<code object extract_video_id at 0x00000204380F50D0, file "c:\Users\Musonda Chibwe\Downloads\youtube-transcriber\utils.py", line 19>)
+             30 MAKE_FUNCTION            4 (annotations)
+             32 STORE_NAME               4 (extract_video_id)
+
+ 32          34 LOAD_CONST               6 ('seconds')
+             36 LOAD_NAME                5 (float)
+             38 LOAD_CONST               7 ('return')
+             40 LOAD_NAME                3 (str)
+             42 BUILD_TUPLE              4
+             44 LOAD_CONST               8 (<code object seconds_to_mmss at 0x000002043813CB30, file "c:\Users\Musonda Chibwe\Downloads\youtube-transcriber\utils.py", line 32>)
+             46 MAKE_FUNCTION            4 (annotations)
+             48 STORE_NAME               6 (seconds_to_mmss)
+
+ 49          50 LOAD_CONST               9 ('transcript')
+             52 LOAD_NAME                7 (list)
+             54 LOAD_CONST               7 ('return')
+             56 LOAD_NAME                7 (list)
+             58 BUILD_TUPLE              4
+             60 LOAD_CONST              10 (<code object format_transcript_display at 0x0000020437B474B0, file "c:\Users\Musonda Chibwe\Downloads\youtube-transcriber\utils.py", line 49>)
+             62 MAKE_FUNCTION            4 (annotations)
+             64 STORE_NAME               8 (format_transcript_display)
+
+ 71          66 LOAD_CONST              15 ((50,))
+             68 LOAD_CONST              12 ('text')
+             70 LOAD_NAME                3 (str)
+             72 LOAD_CONST              13 ('max_words')
+             74 LOAD_NAME                9 (int)
+             76 LOAD_CONST               7 ('return')
+             78 LOAD_NAME                7 (list)
+             80 BUILD_TUPLE              6
+             82 LOAD_CONST              14 (<code object chunk_text at 0x0000020437D835D0, file "c:\Users\Musonda Chibwe\Downloads\youtube-transcriber\utils.py", line 71>)
+             84 MAKE_FUNCTION            5 (defaults, annotations)
+             86 STORE_NAME              10 (chunk_text)
+             88 LOAD_CONST               2 (None)
+             90 RETURN_VALUE
+
+Disassembly of <code object extract_video_id at 0x00000204380F50D0, file "c:\Users\Musonda Chibwe\Downloads\youtube-transcriber\utils.py", line 19>:
+ 19           0 RESUME                   0
+
+ 25           2 LOAD_GLOBAL              0 (_YT_PATTERNS)
+             14 GET_ITER
+        >>   16 FOR_ITER                48 (to 114)
+             18 STORE_FAST               1 (pattern)
+
+ 26          20 LOAD_GLOBAL              3 (NULL + re)
+             32 LOAD_ATTR                2 (search)
+             42 LOAD_FAST                1 (pattern)
+             44 LOAD_FAST                0 (url)
+             46 PRECALL                  2
+             50 CALL                     2
+             60 STORE_FAST               2 (match)
+
+ 27          62 LOAD_FAST                2 (match)
+             64 POP_JUMP_FORWARD_IF_FALSE    23 (to 112)
+
+ 28          66 LOAD_FAST                2 (match)
+             68 LOAD_METHOD              3 (group)
+             90 LOAD_CONST               1 (1)
+             92 PRECALL                  1
+             96 CALL                     1
+            106 SWAP                     2
+            108 POP_TOP
+            110 RETURN_VALUE
+
+ 27     >>  112 JUMP_BACKWARD           49 (to 16)
+
+ 29     >>  114 LOAD_CONST               2 (None)
+            116 RETURN_VALUE
+
+Disassembly of <code object seconds_to_mmss at 0x000002043813CB30, file "c:\Users\Musonda Chibwe\Downloads\youtube-transcriber\utils.py", line 32>:
+ 32           0 RESUME                   0
+
+ 43           2 LOAD_GLOBAL              1 (NULL + int)
+             14 LOAD_FAST                0 (seconds)
+             16 PRECALL                  1
+             20 CALL                     1
+             30 STORE_FAST               1 (total_seconds)
+
+ 44          32 LOAD_FAST                1 (total_seconds)
+             34 LOAD_CONST               1 (60)
+             36 BINARY_OP                2 (//)
+             40 STORE_FAST               2 (minutes)
+
+ 45          42 LOAD_FAST                1 (total_seconds)
+             44 LOAD_CONST               1 (60)
+             46 BINARY_OP                6 (%)
+             50 STORE_FAST               3 (secs)
+
+ 46          52 LOAD_FAST                2 (minutes)
+             54 LOAD_CONST               2 ('02d')
+             56 FORMAT_VALUE             4 (with format)
+             58 LOAD_CONST               3 (':')
+             60 LOAD_FAST                3 (secs)
+             62 LOAD_CONST               2 ('02d')
+             64 FORMAT_VALUE             4 (with format)
+             66 BUILD_STRING             3
+             68 RETURN_VALUE
+
+Disassembly of <code object format_transcript_display at 0x0000020437B474B0, file "c:\Users\Musonda Chibwe\Downloads\youtube-transcriber\utils.py", line 49>:
+ 49           0 RESUME                   0
+
+ 61           2 BUILD_LIST               0
+              4 STORE_FAST               1 (formatted)
+
+ 62           6 LOAD_FAST                0 (transcript)
+              8 GET_ITER
+        >>   10 FOR_ITER               138 (to 288)
+             12 STORE_FAST               2 (entry)
+
+ 63          14 LOAD_FAST                1 (formatted)
+             16 LOAD_METHOD              0 (append)
+
+ 64          38 LOAD_FAST                2 (entry)
+             40 LOAD_METHOD              1 (get)
+             62 LOAD_CONST               1 ('start')
+             64 LOAD_CONST               2 (0)
+             66 PRECALL                  2
+             70 CALL                     2
+
+ 65          80 LOAD_FAST                2 (entry)
+             82 LOAD_METHOD              1 (get)
+            104 LOAD_CONST               3 ('timestamp')
+            106 LOAD_GLOBAL              5 (NULL + seconds_to_mmss)
+            118 LOAD_FAST                2 (entry)
+            120 LOAD_METHOD              1 (get)
+            142 LOAD_CONST               1 ('start')
+            144 LOAD_CONST               2 (0)
+            146 PRECALL                  2
+            150 CALL                     2
+            160 PRECALL                  1
+            164 CALL                     1
+            174 PRECALL                  2
+            178 CALL                     2
+
+ 66         188 LOAD_FAST                2 (entry)
+            190 LOAD_METHOD              1 (get)
+            212 LOAD_CONST               4 ('text')
+            214 LOAD_CONST               5 ('')
+            216 PRECALL                  2
+            220 CALL                     2
+            230 LOAD_METHOD              3 (strip)
+            252 PRECALL                  0
+            256 CALL                     0
+
+ 63         266 LOAD_CONST               6 (('start', 'timestamp', 'text'))
+            268 BUILD_CONST_KEY_MAP      3
+            270 PRECALL                  1
+            274 CALL                     1
+            284 POP_TOP
+            286 JUMP_BACKWARD          139 (to 10)
+
+ 68     >>  288 LOAD_FAST                1 (formatted)
+            290 RETURN_VALUE
+
+Disassembly of <code object chunk_text at 0x0000020437D835D0, file "c:\Users\Musonda Chibwe\Downloads\youtube-transcriber\utils.py", line 71>:
+ 71           0 RESUME                   0
+
+ 76           2 LOAD_FAST                0 (text)
+              4 LOAD_METHOD              0 (split)
+             26 PRECALL                  0
+             30 CALL                     0
+             40 STORE_FAST               2 (words)
+
+ 77          42 BUILD_LIST               0
+             44 STORE_FAST               3 (chunks)
+
+ 78          46 LOAD_GLOBAL              3 (NULL + range)
+             58 LOAD_CONST               1 (0)
+             60 LOAD_GLOBAL              5 (NULL + len)
+             72 LOAD_FAST                2 (words)
+             74 PRECALL                  1
+             78 CALL                     1
+             88 LOAD_FAST                1 (max_words)
+             90 PRECALL                  3
+             94 CALL                     3
+            104 GET_ITER
+        >>  106 FOR_ITER                53 (to 214)
+            108 STORE_FAST               4 (i)
+
+ 79         110 LOAD_FAST                3 (chunks)
+            112 LOAD_METHOD              3 (append)
+            134 LOAD_CONST               2 (' ')
+            136 LOAD_METHOD              4 (join)
+            158 LOAD_FAST                2 (words)
+            160 LOAD_FAST                4 (i)
+            162 LOAD_FAST                4 (i)
+            164 LOAD_FAST                1 (max_words)
+            166 BINARY_OP                0 (+)
+            170 BUILD_SLICE              2
+            172 BINARY_SUBSCR
+            182 PRECALL                  1
+            186 CALL                     1
+            196 PRECALL                  1
+            200 CALL                     1
+            210 POP_TOP
+            212 JUMP_BACKWARD           54 (to 106)
+
+ 80     >>  214 LOAD_FAST                3 (chunks)
+            216 RETURN_VALUE
+
+  Code object: extract_video_id, argcount=1, nlocals=3
+ 19           0 RESUME                   0
+
+ 25           2 LOAD_GLOBAL              0 (_YT_PATTERNS)
+             14 GET_ITER
+        >>   16 FOR_ITER                48 (to 114)
+             18 STORE_FAST               1 (pattern)
+
+ 26          20 LOAD_GLOBAL              3 (NULL + re)
+             32 LOAD_ATTR                2 (search)
+             42 LOAD_FAST                1 (pattern)
+             44 LOAD_FAST                0 (url)
+             46 PRECALL                  2
+             50 CALL                     2
+             60 STORE_FAST               2 (match)
+
+ 27          62 LOAD_FAST                2 (match)
+             64 POP_JUMP_FORWARD_IF_FALSE    23 (to 112)
+
+ 28          66 LOAD_FAST                2 (match)
+             68 LOAD_METHOD              3 (group)
+             90 LOAD_CONST               1 (1)
+             92 PRECALL                  1
+             96 CALL                     1
+            106 SWAP                     2
+            108 POP_TOP
+            110 RETURN_VALUE
+
+ 27     >>  112 JUMP_BACKWARD           49 (to 16)
+
+ 29     >>  114 LOAD_CONST               2 (None)
+            116 RETURN_VALUE
+
+  Code object: seconds_to_mmss, argcount=1, nlocals=4
+ 32           0 RESUME                   0
+
+ 43           2 LOAD_GLOBAL              1 (NULL + int)
+             14 LOAD_FAST                0 (seconds)
+             16 PRECALL                  1
+             20 CALL                     1
+             30 STORE_FAST               1 (total_seconds)
+
+ 44          32 LOAD_FAST                1 (total_seconds)
+             34 LOAD_CONST               1 (60)
+             36 BINARY_OP                2 (//)
+             40 STORE_FAST               2 (minutes)
+
+ 45          42 LOAD_FAST                1 (total_seconds)
+             44 LOAD_CONST               1 (60)
+             46 BINARY_OP                6 (%)
+             50 STORE_FAST               3 (secs)
+
+ 46          52 LOAD_FAST                2 (minutes)
+             54 LOAD_CONST               2 ('02d')
+             56 FORMAT_VALUE             4 (with format)
+             58 LOAD_CONST               3 (':')
+             60 LOAD_FAST                3 (secs)
+             62 LOAD_CONST               2 ('02d')
+             64 FORMAT_VALUE             4 (with format)
+             66 BUILD_STRING             3
+             68 RETURN_VALUE
+
+  Code object: format_transcript_display, argcount=1, nlocals=3
+ 49           0 RESUME                   0
+
+ 61           2 BUILD_LIST               0
+              4 STORE_FAST               1 (formatted)
+
+ 62           6 LOAD_FAST                0 (transcript)
+              8 GET_ITER
+        >>   10 FOR_ITER               138 (to 288)
+             12 STORE_FAST               2 (entry)
+
+ 63          14 LOAD_FAST                1 (formatted)
+             16 LOAD_METHOD              0 (append)
+
+ 64          38 LOAD_FAST                2 (entry)
+             40 LOAD_METHOD              1 (get)
+             62 LOAD_CONST               1 ('start')
+             64 LOAD_CONST               2 (0)
+             66 PRECALL                  2
+             70 CALL                     2
+
+ 65          80 LOAD_FAST                2 (entry)
+             82 LOAD_METHOD              1 (get)
+            104 LOAD_CONST               3 ('timestamp')
+            106 LOAD_GLOBAL              5 (NULL + seconds_to_mmss)
+            118 LOAD_FAST                2 (entry)
+            120 LOAD_METHOD              1 (get)
+            142 LOAD_CONST               1 ('start')
+            144 LOAD_CONST               2 (0)
+            146 PRECALL                  2
+            150 CALL                     2
+            160 PRECALL                  1
+            164 CALL                     1
+            174 PRECALL                  2
+            178 CALL                     2
+
+ 66         188 LOAD_FAST                2 (entry)
+            190 LOAD_METHOD              1 (get)
+            212 LOAD_CONST               4 ('text')
+            214 LOAD_CONST               5 ('')
+            216 PRECALL                  2
+            220 CALL                     2
+            230 LOAD_METHOD              3 (strip)
+            252 PRECALL                  0
+            256 CALL                     0
+
+ 63         266 LOAD_CONST               6 (('start', 'timestamp', 'text'))
+            268 BUILD_CONST_KEY_MAP      3
+            270 PRECALL                  1
+            274 CALL                     1
+            284 POP_TOP
+            286 JUMP_BACKWARD          139 (to 10)
+
+ 68     >>  288 LOAD_FAST                1 (formatted)
+            290 RETURN_VALUE
+
+  Code object: chunk_text, argcount=2, nlocals=5
+ 71           0 RESUME                   0
+
+ 76           2 LOAD_FAST                0 (text)
+              4 LOAD_METHOD              0 (split)
+             26 PRECALL                  0
+             30 CALL                     0
+             40 STORE_FAST               2 (words)
+
+ 77          42 BUILD_LIST               0
+             44 STORE_FAST               3 (chunks)
+
+ 78          46 LOAD_GLOBAL              3 (NULL + range)
+             58 LOAD_CONST               1 (0)
+             60 LOAD_GLOBAL              5 (NULL + len)
+             72 LOAD_FAST                2 (words)
+             74 PRECALL                  1
+             78 CALL                     1
+             88 LOAD_FAST                1 (max_words)
+             90 PRECALL                  3
+             94 CALL                     3
+            104 GET_ITER
+        >>  106 FOR_ITER                53 (to 214)
+            108 STORE_FAST               4 (i)
+
+ 79         110 LOAD_FAST                3 (chunks)
+            112 LOAD_METHOD              3 (append)
+            134 LOAD_CONST               2 (' ')
+            136 LOAD_METHOD              4 (join)
+            158 LOAD_FAST                2 (words)
+            160 LOAD_FAST                4 (i)
+            162 LOAD_FAST                4 (i)
+            164 LOAD_FAST                1 (max_words)
+            166 BINARY_OP                0 (+)
+            170 BUILD_SLICE              2
+            172 BINARY_SUBSCR
+            182 PRECALL                  1
+            186 CALL                     1
+            196 PRECALL                  1
+            200 CALL                     1
+            210 POP_TOP
+            212 JUMP_BACKWARD           54 (to 106)
+
+ 80     >>  214 LOAD_FAST                3 (chunks)
+            216 RETURN_VALUE

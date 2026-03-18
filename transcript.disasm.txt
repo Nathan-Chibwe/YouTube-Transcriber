@@ -1,0 +1,768 @@
+  0           0 RESUME                   0
+
+  1           2 LOAD_CONST               0 ('\ntranscript.py\n─────────────\nHandles transcript fetching.\n1. Try youtube-transcript-api (fast, no download needed).\n2. Fall back to yt-dlp + Whisper if captions are unavailable.\n')
+              4 STORE_NAME               0 (__doc__)
+
+ 14           6 NOP
+
+ 15           8 LOAD_CONST               1 (0)
+             10 LOAD_CONST               2 (('YouTubeTranscriptApi', 'TranscriptsDisabled', 'NoTranscriptFound'))
+             12 IMPORT_NAME              1 (youtube_transcript_api)
+             14 IMPORT_FROM              2 (YouTubeTranscriptApi)
+             16 STORE_NAME               2 (YouTubeTranscriptApi)
+             18 IMPORT_FROM              3 (TranscriptsDisabled)
+             20 STORE_NAME               3 (TranscriptsDisabled)
+             22 IMPORT_FROM              4 (NoTranscriptFound)
+             24 STORE_NAME               4 (NoTranscriptFound)
+             26 POP_TOP
+
+ 16          28 LOAD_CONST               3 (True)
+             30 STORE_NAME               5 (_YT_TRANSCRIPT_API_AVAILABLE)
+             32 JUMP_FORWARD            19 (to 72)
+        >>   34 PUSH_EXC_INFO
+
+ 17          36 LOAD_NAME                6 (Exception)
+             38 CHECK_EXC_MATCH
+             40 POP_JUMP_FORWARD_IF_FALSE    11 (to 64)
+             42 POP_TOP
+
+ 19          44 LOAD_CONST               4 (None)
+             46 STORE_NAME               2 (YouTubeTranscriptApi)
+
+ 20          48 LOAD_NAME                6 (Exception)
+             50 STORE_NAME               3 (TranscriptsDisabled)
+
+ 21          52 LOAD_NAME                6 (Exception)
+             54 STORE_NAME               4 (NoTranscriptFound)
+
+ 22          56 LOAD_CONST               5 (False)
+             58 STORE_NAME               5 (_YT_TRANSCRIPT_API_AVAILABLE)
+             60 POP_EXCEPT
+             62 JUMP_FORWARD             4 (to 72)
+
+ 17     >>   64 RERAISE                  0
+        >>   66 COPY                     3
+             68 POP_EXCEPT
+             70 RERAISE                  1
+
+ 24     >>   72 LOAD_CONST               1 (0)
+             74 LOAD_CONST               6 (('extract_video_id', 'seconds_to_mmss'))
+             76 IMPORT_NAME              7 (utils)
+             78 IMPORT_FROM              8 (extract_video_id)
+             80 STORE_NAME               8 (extract_video_id)
+             82 IMPORT_FROM              9 (seconds_to_mmss)
+             84 STORE_NAME               9 (seconds_to_mmss)
+             86 POP_TOP
+
+ 27          88 LOAD_CONST               7 ('url')
+             90 LOAD_NAME               10 (str)
+             92 BUILD_TUPLE              2
+             94 LOAD_CONST               8 (<code object get_transcript at 0x0000020437FBB180, file "c:\Users\Musonda Chibwe\Downloads\youtube-transcriber\transcript.py", line 27>)
+             96 MAKE_FUNCTION            4 (annotations)
+             98 STORE_NAME              11 (get_transcript)
+
+ 71         100 LOAD_CONST               9 ('raw')
+            102 LOAD_NAME               12 (list)
+            104 LOAD_CONST              10 ('return')
+            106 LOAD_NAME               12 (list)
+            108 BUILD_TUPLE              4
+            110 LOAD_CONST              11 (<code object _normalise at 0x00000204380B5FD0, file "c:\Users\Musonda Chibwe\Downloads\youtube-transcriber\transcript.py", line 71>)
+            112 MAKE_FUNCTION            4 (annotations)
+            114 STORE_NAME              13 (_normalise)
+            116 LOAD_CONST               4 (None)
+            118 RETURN_VALUE
+ExceptionTable:
+  8 to 30 -> 34 [0]
+  34 to 58 -> 66 [1] lasti
+  64 to 64 -> 66 [1] lasti
+
+Disassembly of <code object get_transcript at 0x0000020437FBB180, file "c:\Users\Musonda Chibwe\Downloads\youtube-transcriber\transcript.py", line 27>:
+ 27           0 RESUME                   0
+
+ 37           2 LOAD_GLOBAL              1 (NULL + extract_video_id)
+             14 LOAD_FAST                0 (url)
+             16 PRECALL                  1
+             20 CALL                     1
+             30 STORE_FAST               1 (video_id)
+
+ 38          32 LOAD_FAST                1 (video_id)
+             34 POP_JUMP_FORWARD_IF_TRUE     5 (to 46)
+
+ 39          36 BUILD_LIST               0
+             38 LOAD_CONST               1 ('')
+             40 LOAD_CONST               2 ('Could not extract a valid video ID from the URL.')
+             42 BUILD_TUPLE              3
+             44 RETURN_VALUE
+
+ 42     >>   46 LOAD_GLOBAL              2 (_YT_TRANSCRIPT_API_AVAILABLE)
+             58 POP_JUMP_FORWARD_IF_FALSE   100 (to 260)
+
+ 43          60 NOP
+
+ 44          62 LOAD_GLOBAL              5 (NULL + YouTubeTranscriptApi)
+             74 LOAD_ATTR                3 (get_transcript)
+             84 LOAD_FAST                1 (video_id)
+             86 PRECALL                  1
+             90 CALL                     1
+            100 STORE_FAST               2 (raw)
+
+ 45         102 LOAD_GLOBAL              9 (NULL + _normalise)
+            114 LOAD_FAST                2 (raw)
+            116 PRECALL                  1
+            120 CALL                     1
+            130 STORE_FAST               3 (transcript)
+
+ 46         132 LOAD_FAST                3 (transcript)
+            134 LOAD_CONST               3 ('YouTube Captions')
+            136 LOAD_CONST               4 (None)
+            138 BUILD_TUPLE              3
+            140 RETURN_VALUE
+        >>  142 PUSH_EXC_INFO
+
+ 48         144 LOAD_GLOBAL             10 (TranscriptsDisabled)
+            156 LOAD_GLOBAL             12 (NoTranscriptFound)
+            168 BUILD_TUPLE              2
+            170 CHECK_EXC_MATCH
+            172 POP_JUMP_FORWARD_IF_FALSE     3 (to 180)
+            174 POP_TOP
+
+ 49         176 POP_EXCEPT
+            178 JUMP_FORWARD            55 (to 290)
+
+ 50     >>  180 LOAD_GLOBAL             14 (Exception)
+            192 CHECK_EXC_MATCH
+            194 POP_JUMP_FORWARD_IF_FALSE    28 (to 252)
+            196 STORE_FAST               4 (e)
+
+ 52         198 LOAD_GLOBAL             17 (NULL + print)
+            210 LOAD_CONST               5 ('[transcript] Caption fetch error: ')
+            212 LOAD_FAST                4 (e)
+            214 FORMAT_VALUE             0
+            216 BUILD_STRING             2
+            218 PRECALL                  1
+            222 CALL                     1
+            232 POP_TOP
+            234 POP_EXCEPT
+            236 LOAD_CONST               4 (None)
+            238 STORE_FAST               4 (e)
+            240 DELETE_FAST              4 (e)
+            242 JUMP_FORWARD            23 (to 290)
+        >>  244 LOAD_CONST               4 (None)
+            246 STORE_FAST               4 (e)
+            248 DELETE_FAST              4 (e)
+            250 RERAISE                  1
+
+ 50     >>  252 RERAISE                  0
+        >>  254 COPY                     3
+            256 POP_EXCEPT
+            258 RERAISE                  1
+
+ 54     >>  260 LOAD_GLOBAL             17 (NULL + print)
+            272 LOAD_CONST               6 ('[transcript] youtube-transcript-api not installed; skipping caption fetch and using Whisper fallback.')
+            274 PRECALL                  1
+            278 CALL                     1
+            288 POP_TOP
+
+ 60     >>  290 NOP
+
+ 61         292 LOAD_CONST               7 (0)
+            294 LOAD_CONST               8 (('transcribe_with_whisper',))
+            296 IMPORT_NAME              9 (whisper_transcriber)
+            298 IMPORT_FROM             10 (transcribe_with_whisper)
+            300 STORE_FAST               5 (transcribe_with_whisper)
+            302 POP_TOP
+            304 JUMP_FORWARD            32 (to 370)
+        >>  306 PUSH_EXC_INFO
+
+ 62         308 LOAD_GLOBAL             14 (Exception)
+            320 CHECK_EXC_MATCH
+            322 POP_JUMP_FORWARD_IF_FALSE    19 (to 362)
+            324 STORE_FAST               4 (e)
+
+ 63         326 BUILD_LIST               0
+            328 LOAD_CONST               1 ('')
+            330 LOAD_CONST               9 ('Whisper transcriber unavailable: ')
+            332 LOAD_FAST                4 (e)
+            334 FORMAT_VALUE             0
+            336 LOAD_CONST              10 ('. Install required packages (see README).')
+            338 BUILD_STRING             3
+            340 BUILD_TUPLE              3
+            342 SWAP                     2
+            344 POP_EXCEPT
+            346 LOAD_CONST               4 (None)
+            348 STORE_FAST               4 (e)
+            350 DELETE_FAST              4 (e)
+            352 RETURN_VALUE
+        >>  354 LOAD_CONST               4 (None)
+            356 STORE_FAST               4 (e)
+            358 DELETE_FAST              4 (e)
+            360 RERAISE                  1
+
+ 62     >>  362 RERAISE                  0
+        >>  364 COPY                     3
+            366 POP_EXCEPT
+            368 RERAISE                  1
+
+ 65     >>  370 PUSH_NULL
+            372 LOAD_FAST                5 (transcribe_with_whisper)
+            374 LOAD_FAST                0 (url)
+            376 PRECALL                  1
+            380 CALL                     1
+            390 UNPACK_SEQUENCE          2
+            394 STORE_FAST               3 (transcript)
+            396 STORE_FAST               6 (error)
+
+ 66         398 LOAD_FAST                6 (error)
+            400 POP_JUMP_FORWARD_IF_FALSE     5 (to 412)
+
+ 67         402 BUILD_LIST               0
+            404 LOAD_CONST               1 ('')
+            406 LOAD_FAST                6 (error)
+            408 BUILD_TUPLE              3
+            410 RETURN_VALUE
+
+ 68     >>  412 LOAD_FAST                3 (transcript)
+            414 LOAD_CONST              11 ('Whisper (audio transcription)')
+            416 LOAD_CONST               4 (None)
+            418 BUILD_TUPLE              3
+            420 RETURN_VALUE
+ExceptionTable:
+  62 to 138 -> 142 [0]
+  142 to 174 -> 254 [1] lasti
+  180 to 196 -> 254 [1] lasti
+  198 to 232 -> 244 [1] lasti
+  244 to 252 -> 254 [1] lasti
+  292 to 302 -> 306 [0]
+  306 to 324 -> 364 [1] lasti
+  326 to 340 -> 354 [1] lasti
+  342 to 342 -> 364 [1] lasti
+  354 to 362 -> 364 [1] lasti
+
+Disassembly of <code object _normalise at 0x00000204380B5FD0, file "c:\Users\Musonda Chibwe\Downloads\youtube-transcriber\transcript.py", line 71>:
+ 71           0 RESUME                   0
+
+ 77           2 BUILD_LIST               0
+              4 STORE_FAST               1 (result)
+
+ 78           6 LOAD_FAST                0 (raw)
+              8 GET_ITER
+        >>   10 FOR_ITER                76 (to 164)
+             12 STORE_FAST               2 (item)
+
+ 79          14 LOAD_FAST                1 (result)
+             16 LOAD_METHOD              0 (append)
+
+ 80          38 LOAD_FAST                2 (item)
+             40 LOAD_CONST               1 ('start')
+             42 BINARY_SUBSCR
+
+ 81          52 LOAD_GLOBAL              3 (NULL + seconds_to_mmss)
+             64 LOAD_FAST                2 (item)
+             66 LOAD_CONST               1 ('start')
+             68 BINARY_SUBSCR
+             78 PRECALL                  1
+             82 CALL                     1
+
+ 82          92 LOAD_FAST                2 (item)
+             94 LOAD_CONST               2 ('text')
+             96 BINARY_SUBSCR
+            106 LOAD_METHOD              2 (strip)
+            128 PRECALL                  0
+            132 CALL                     0
+
+ 79         142 LOAD_CONST               3 (('start', 'timestamp', 'text'))
+            144 BUILD_CONST_KEY_MAP      3
+            146 PRECALL                  1
+            150 CALL                     1
+            160 POP_TOP
+            162 JUMP_BACKWARD           77 (to 10)
+
+ 84     >>  164 LOAD_FAST                1 (result)
+            166 RETURN_VALUE
+
+Code object: <module>, argcount=0, nlocals=0
+  0           0 RESUME                   0
+
+  1           2 LOAD_CONST               0 ('\ntranscript.py\n─────────────\nHandles transcript fetching.\n1. Try youtube-transcript-api (fast, no download needed).\n2. Fall back to yt-dlp + Whisper if captions are unavailable.\n')
+              4 STORE_NAME               0 (__doc__)
+
+ 14           6 NOP
+
+ 15           8 LOAD_CONST               1 (0)
+             10 LOAD_CONST               2 (('YouTubeTranscriptApi', 'TranscriptsDisabled', 'NoTranscriptFound'))
+             12 IMPORT_NAME              1 (youtube_transcript_api)
+             14 IMPORT_FROM              2 (YouTubeTranscriptApi)
+             16 STORE_NAME               2 (YouTubeTranscriptApi)
+             18 IMPORT_FROM              3 (TranscriptsDisabled)
+             20 STORE_NAME               3 (TranscriptsDisabled)
+             22 IMPORT_FROM              4 (NoTranscriptFound)
+             24 STORE_NAME               4 (NoTranscriptFound)
+             26 POP_TOP
+
+ 16          28 LOAD_CONST               3 (True)
+             30 STORE_NAME               5 (_YT_TRANSCRIPT_API_AVAILABLE)
+             32 JUMP_FORWARD            19 (to 72)
+        >>   34 PUSH_EXC_INFO
+
+ 17          36 LOAD_NAME                6 (Exception)
+             38 CHECK_EXC_MATCH
+             40 POP_JUMP_FORWARD_IF_FALSE    11 (to 64)
+             42 POP_TOP
+
+ 19          44 LOAD_CONST               4 (None)
+             46 STORE_NAME               2 (YouTubeTranscriptApi)
+
+ 20          48 LOAD_NAME                6 (Exception)
+             50 STORE_NAME               3 (TranscriptsDisabled)
+
+ 21          52 LOAD_NAME                6 (Exception)
+             54 STORE_NAME               4 (NoTranscriptFound)
+
+ 22          56 LOAD_CONST               5 (False)
+             58 STORE_NAME               5 (_YT_TRANSCRIPT_API_AVAILABLE)
+             60 POP_EXCEPT
+             62 JUMP_FORWARD             4 (to 72)
+
+ 17     >>   64 RERAISE                  0
+        >>   66 COPY                     3
+             68 POP_EXCEPT
+             70 RERAISE                  1
+
+ 24     >>   72 LOAD_CONST               1 (0)
+             74 LOAD_CONST               6 (('extract_video_id', 'seconds_to_mmss'))
+             76 IMPORT_NAME              7 (utils)
+             78 IMPORT_FROM              8 (extract_video_id)
+             80 STORE_NAME               8 (extract_video_id)
+             82 IMPORT_FROM              9 (seconds_to_mmss)
+             84 STORE_NAME               9 (seconds_to_mmss)
+             86 POP_TOP
+
+ 27          88 LOAD_CONST               7 ('url')
+             90 LOAD_NAME               10 (str)
+             92 BUILD_TUPLE              2
+             94 LOAD_CONST               8 (<code object get_transcript at 0x0000020437FBB180, file "c:\Users\Musonda Chibwe\Downloads\youtube-transcriber\transcript.py", line 27>)
+             96 MAKE_FUNCTION            4 (annotations)
+             98 STORE_NAME              11 (get_transcript)
+
+ 71         100 LOAD_CONST               9 ('raw')
+            102 LOAD_NAME               12 (list)
+            104 LOAD_CONST              10 ('return')
+            106 LOAD_NAME               12 (list)
+            108 BUILD_TUPLE              4
+            110 LOAD_CONST              11 (<code object _normalise at 0x00000204380B5FD0, file "c:\Users\Musonda Chibwe\Downloads\youtube-transcriber\transcript.py", line 71>)
+            112 MAKE_FUNCTION            4 (annotations)
+            114 STORE_NAME              13 (_normalise)
+            116 LOAD_CONST               4 (None)
+            118 RETURN_VALUE
+ExceptionTable:
+  8 to 30 -> 34 [0]
+  34 to 58 -> 66 [1] lasti
+  64 to 64 -> 66 [1] lasti
+
+Disassembly of <code object get_transcript at 0x0000020437FBB180, file "c:\Users\Musonda Chibwe\Downloads\youtube-transcriber\transcript.py", line 27>:
+ 27           0 RESUME                   0
+
+ 37           2 LOAD_GLOBAL              1 (NULL + extract_video_id)
+             14 LOAD_FAST                0 (url)
+             16 PRECALL                  1
+             20 CALL                     1
+             30 STORE_FAST               1 (video_id)
+
+ 38          32 LOAD_FAST                1 (video_id)
+             34 POP_JUMP_FORWARD_IF_TRUE     5 (to 46)
+
+ 39          36 BUILD_LIST               0
+             38 LOAD_CONST               1 ('')
+             40 LOAD_CONST               2 ('Could not extract a valid video ID from the URL.')
+             42 BUILD_TUPLE              3
+             44 RETURN_VALUE
+
+ 42     >>   46 LOAD_GLOBAL              2 (_YT_TRANSCRIPT_API_AVAILABLE)
+             58 POP_JUMP_FORWARD_IF_FALSE   100 (to 260)
+
+ 43          60 NOP
+
+ 44          62 LOAD_GLOBAL              5 (NULL + YouTubeTranscriptApi)
+             74 LOAD_ATTR                3 (get_transcript)
+             84 LOAD_FAST                1 (video_id)
+             86 PRECALL                  1
+             90 CALL                     1
+            100 STORE_FAST               2 (raw)
+
+ 45         102 LOAD_GLOBAL              9 (NULL + _normalise)
+            114 LOAD_FAST                2 (raw)
+            116 PRECALL                  1
+            120 CALL                     1
+            130 STORE_FAST               3 (transcript)
+
+ 46         132 LOAD_FAST                3 (transcript)
+            134 LOAD_CONST               3 ('YouTube Captions')
+            136 LOAD_CONST               4 (None)
+            138 BUILD_TUPLE              3
+            140 RETURN_VALUE
+        >>  142 PUSH_EXC_INFO
+
+ 48         144 LOAD_GLOBAL             10 (TranscriptsDisabled)
+            156 LOAD_GLOBAL             12 (NoTranscriptFound)
+            168 BUILD_TUPLE              2
+            170 CHECK_EXC_MATCH
+            172 POP_JUMP_FORWARD_IF_FALSE     3 (to 180)
+            174 POP_TOP
+
+ 49         176 POP_EXCEPT
+            178 JUMP_FORWARD            55 (to 290)
+
+ 50     >>  180 LOAD_GLOBAL             14 (Exception)
+            192 CHECK_EXC_MATCH
+            194 POP_JUMP_FORWARD_IF_FALSE    28 (to 252)
+            196 STORE_FAST               4 (e)
+
+ 52         198 LOAD_GLOBAL             17 (NULL + print)
+            210 LOAD_CONST               5 ('[transcript] Caption fetch error: ')
+            212 LOAD_FAST                4 (e)
+            214 FORMAT_VALUE             0
+            216 BUILD_STRING             2
+            218 PRECALL                  1
+            222 CALL                     1
+            232 POP_TOP
+            234 POP_EXCEPT
+            236 LOAD_CONST               4 (None)
+            238 STORE_FAST               4 (e)
+            240 DELETE_FAST              4 (e)
+            242 JUMP_FORWARD            23 (to 290)
+        >>  244 LOAD_CONST               4 (None)
+            246 STORE_FAST               4 (e)
+            248 DELETE_FAST              4 (e)
+            250 RERAISE                  1
+
+ 50     >>  252 RERAISE                  0
+        >>  254 COPY                     3
+            256 POP_EXCEPT
+            258 RERAISE                  1
+
+ 54     >>  260 LOAD_GLOBAL             17 (NULL + print)
+            272 LOAD_CONST               6 ('[transcript] youtube-transcript-api not installed; skipping caption fetch and using Whisper fallback.')
+            274 PRECALL                  1
+            278 CALL                     1
+            288 POP_TOP
+
+ 60     >>  290 NOP
+
+ 61         292 LOAD_CONST               7 (0)
+            294 LOAD_CONST               8 (('transcribe_with_whisper',))
+            296 IMPORT_NAME              9 (whisper_transcriber)
+            298 IMPORT_FROM             10 (transcribe_with_whisper)
+            300 STORE_FAST               5 (transcribe_with_whisper)
+            302 POP_TOP
+            304 JUMP_FORWARD            32 (to 370)
+        >>  306 PUSH_EXC_INFO
+
+ 62         308 LOAD_GLOBAL             14 (Exception)
+            320 CHECK_EXC_MATCH
+            322 POP_JUMP_FORWARD_IF_FALSE    19 (to 362)
+            324 STORE_FAST               4 (e)
+
+ 63         326 BUILD_LIST               0
+            328 LOAD_CONST               1 ('')
+            330 LOAD_CONST               9 ('Whisper transcriber unavailable: ')
+            332 LOAD_FAST                4 (e)
+            334 FORMAT_VALUE             0
+            336 LOAD_CONST              10 ('. Install required packages (see README).')
+            338 BUILD_STRING             3
+            340 BUILD_TUPLE              3
+            342 SWAP                     2
+            344 POP_EXCEPT
+            346 LOAD_CONST               4 (None)
+            348 STORE_FAST               4 (e)
+            350 DELETE_FAST              4 (e)
+            352 RETURN_VALUE
+        >>  354 LOAD_CONST               4 (None)
+            356 STORE_FAST               4 (e)
+            358 DELETE_FAST              4 (e)
+            360 RERAISE                  1
+
+ 62     >>  362 RERAISE                  0
+        >>  364 COPY                     3
+            366 POP_EXCEPT
+            368 RERAISE                  1
+
+ 65     >>  370 PUSH_NULL
+            372 LOAD_FAST                5 (transcribe_with_whisper)
+            374 LOAD_FAST                0 (url)
+            376 PRECALL                  1
+            380 CALL                     1
+            390 UNPACK_SEQUENCE          2
+            394 STORE_FAST               3 (transcript)
+            396 STORE_FAST               6 (error)
+
+ 66         398 LOAD_FAST                6 (error)
+            400 POP_JUMP_FORWARD_IF_FALSE     5 (to 412)
+
+ 67         402 BUILD_LIST               0
+            404 LOAD_CONST               1 ('')
+            406 LOAD_FAST                6 (error)
+            408 BUILD_TUPLE              3
+            410 RETURN_VALUE
+
+ 68     >>  412 LOAD_FAST                3 (transcript)
+            414 LOAD_CONST              11 ('Whisper (audio transcription)')
+            416 LOAD_CONST               4 (None)
+            418 BUILD_TUPLE              3
+            420 RETURN_VALUE
+ExceptionTable:
+  62 to 138 -> 142 [0]
+  142 to 174 -> 254 [1] lasti
+  180 to 196 -> 254 [1] lasti
+  198 to 232 -> 244 [1] lasti
+  244 to 252 -> 254 [1] lasti
+  292 to 302 -> 306 [0]
+  306 to 324 -> 364 [1] lasti
+  326 to 340 -> 354 [1] lasti
+  342 to 342 -> 364 [1] lasti
+  354 to 362 -> 364 [1] lasti
+
+Disassembly of <code object _normalise at 0x00000204380B5FD0, file "c:\Users\Musonda Chibwe\Downloads\youtube-transcriber\transcript.py", line 71>:
+ 71           0 RESUME                   0
+
+ 77           2 BUILD_LIST               0
+              4 STORE_FAST               1 (result)
+
+ 78           6 LOAD_FAST                0 (raw)
+              8 GET_ITER
+        >>   10 FOR_ITER                76 (to 164)
+             12 STORE_FAST               2 (item)
+
+ 79          14 LOAD_FAST                1 (result)
+             16 LOAD_METHOD              0 (append)
+
+ 80          38 LOAD_FAST                2 (item)
+             40 LOAD_CONST               1 ('start')
+             42 BINARY_SUBSCR
+
+ 81          52 LOAD_GLOBAL              3 (NULL + seconds_to_mmss)
+             64 LOAD_FAST                2 (item)
+             66 LOAD_CONST               1 ('start')
+             68 BINARY_SUBSCR
+             78 PRECALL                  1
+             82 CALL                     1
+
+ 82          92 LOAD_FAST                2 (item)
+             94 LOAD_CONST               2 ('text')
+             96 BINARY_SUBSCR
+            106 LOAD_METHOD              2 (strip)
+            128 PRECALL                  0
+            132 CALL                     0
+
+ 79         142 LOAD_CONST               3 (('start', 'timestamp', 'text'))
+            144 BUILD_CONST_KEY_MAP      3
+            146 PRECALL                  1
+            150 CALL                     1
+            160 POP_TOP
+            162 JUMP_BACKWARD           77 (to 10)
+
+ 84     >>  164 LOAD_FAST                1 (result)
+            166 RETURN_VALUE
+
+  Code object: get_transcript, argcount=1, nlocals=7
+ 27           0 RESUME                   0
+
+ 37           2 LOAD_GLOBAL              1 (NULL + extract_video_id)
+             14 LOAD_FAST                0 (url)
+             16 PRECALL                  1
+             20 CALL                     1
+             30 STORE_FAST               1 (video_id)
+
+ 38          32 LOAD_FAST                1 (video_id)
+             34 POP_JUMP_FORWARD_IF_TRUE     5 (to 46)
+
+ 39          36 BUILD_LIST               0
+             38 LOAD_CONST               1 ('')
+             40 LOAD_CONST               2 ('Could not extract a valid video ID from the URL.')
+             42 BUILD_TUPLE              3
+             44 RETURN_VALUE
+
+ 42     >>   46 LOAD_GLOBAL              2 (_YT_TRANSCRIPT_API_AVAILABLE)
+             58 POP_JUMP_FORWARD_IF_FALSE   100 (to 260)
+
+ 43          60 NOP
+
+ 44          62 LOAD_GLOBAL              5 (NULL + YouTubeTranscriptApi)
+             74 LOAD_ATTR                3 (get_transcript)
+             84 LOAD_FAST                1 (video_id)
+             86 PRECALL                  1
+             90 CALL                     1
+            100 STORE_FAST               2 (raw)
+
+ 45         102 LOAD_GLOBAL              9 (NULL + _normalise)
+            114 LOAD_FAST                2 (raw)
+            116 PRECALL                  1
+            120 CALL                     1
+            130 STORE_FAST               3 (transcript)
+
+ 46         132 LOAD_FAST                3 (transcript)
+            134 LOAD_CONST               3 ('YouTube Captions')
+            136 LOAD_CONST               4 (None)
+            138 BUILD_TUPLE              3
+            140 RETURN_VALUE
+        >>  142 PUSH_EXC_INFO
+
+ 48         144 LOAD_GLOBAL             10 (TranscriptsDisabled)
+            156 LOAD_GLOBAL             12 (NoTranscriptFound)
+            168 BUILD_TUPLE              2
+            170 CHECK_EXC_MATCH
+            172 POP_JUMP_FORWARD_IF_FALSE     3 (to 180)
+            174 POP_TOP
+
+ 49         176 POP_EXCEPT
+            178 JUMP_FORWARD            55 (to 290)
+
+ 50     >>  180 LOAD_GLOBAL             14 (Exception)
+            192 CHECK_EXC_MATCH
+            194 POP_JUMP_FORWARD_IF_FALSE    28 (to 252)
+            196 STORE_FAST               4 (e)
+
+ 52         198 LOAD_GLOBAL             17 (NULL + print)
+            210 LOAD_CONST               5 ('[transcript] Caption fetch error: ')
+            212 LOAD_FAST                4 (e)
+            214 FORMAT_VALUE             0
+            216 BUILD_STRING             2
+            218 PRECALL                  1
+            222 CALL                     1
+            232 POP_TOP
+            234 POP_EXCEPT
+            236 LOAD_CONST               4 (None)
+            238 STORE_FAST               4 (e)
+            240 DELETE_FAST              4 (e)
+            242 JUMP_FORWARD            23 (to 290)
+        >>  244 LOAD_CONST               4 (None)
+            246 STORE_FAST               4 (e)
+            248 DELETE_FAST              4 (e)
+            250 RERAISE                  1
+
+ 50     >>  252 RERAISE                  0
+        >>  254 COPY                     3
+            256 POP_EXCEPT
+            258 RERAISE                  1
+
+ 54     >>  260 LOAD_GLOBAL             17 (NULL + print)
+            272 LOAD_CONST               6 ('[transcript] youtube-transcript-api not installed; skipping caption fetch and using Whisper fallback.')
+            274 PRECALL                  1
+            278 CALL                     1
+            288 POP_TOP
+
+ 60     >>  290 NOP
+
+ 61         292 LOAD_CONST               7 (0)
+            294 LOAD_CONST               8 (('transcribe_with_whisper',))
+            296 IMPORT_NAME              9 (whisper_transcriber)
+            298 IMPORT_FROM             10 (transcribe_with_whisper)
+            300 STORE_FAST               5 (transcribe_with_whisper)
+            302 POP_TOP
+            304 JUMP_FORWARD            32 (to 370)
+        >>  306 PUSH_EXC_INFO
+
+ 62         308 LOAD_GLOBAL             14 (Exception)
+            320 CHECK_EXC_MATCH
+            322 POP_JUMP_FORWARD_IF_FALSE    19 (to 362)
+            324 STORE_FAST               4 (e)
+
+ 63         326 BUILD_LIST               0
+            328 LOAD_CONST               1 ('')
+            330 LOAD_CONST               9 ('Whisper transcriber unavailable: ')
+            332 LOAD_FAST                4 (e)
+            334 FORMAT_VALUE             0
+            336 LOAD_CONST              10 ('. Install required packages (see README).')
+            338 BUILD_STRING             3
+            340 BUILD_TUPLE              3
+            342 SWAP                     2
+            344 POP_EXCEPT
+            346 LOAD_CONST               4 (None)
+            348 STORE_FAST               4 (e)
+            350 DELETE_FAST              4 (e)
+            352 RETURN_VALUE
+        >>  354 LOAD_CONST               4 (None)
+            356 STORE_FAST               4 (e)
+            358 DELETE_FAST              4 (e)
+            360 RERAISE                  1
+
+ 62     >>  362 RERAISE                  0
+        >>  364 COPY                     3
+            366 POP_EXCEPT
+            368 RERAISE                  1
+
+ 65     >>  370 PUSH_NULL
+            372 LOAD_FAST                5 (transcribe_with_whisper)
+            374 LOAD_FAST                0 (url)
+            376 PRECALL                  1
+            380 CALL                     1
+            390 UNPACK_SEQUENCE          2
+            394 STORE_FAST               3 (transcript)
+            396 STORE_FAST               6 (error)
+
+ 66         398 LOAD_FAST                6 (error)
+            400 POP_JUMP_FORWARD_IF_FALSE     5 (to 412)
+
+ 67         402 BUILD_LIST               0
+            404 LOAD_CONST               1 ('')
+            406 LOAD_FAST                6 (error)
+            408 BUILD_TUPLE              3
+            410 RETURN_VALUE
+
+ 68     >>  412 LOAD_FAST                3 (transcript)
+            414 LOAD_CONST              11 ('Whisper (audio transcription)')
+            416 LOAD_CONST               4 (None)
+            418 BUILD_TUPLE              3
+            420 RETURN_VALUE
+ExceptionTable:
+  62 to 138 -> 142 [0]
+  142 to 174 -> 254 [1] lasti
+  180 to 196 -> 254 [1] lasti
+  198 to 232 -> 244 [1] lasti
+  244 to 252 -> 254 [1] lasti
+  292 to 302 -> 306 [0]
+  306 to 324 -> 364 [1] lasti
+  326 to 340 -> 354 [1] lasti
+  342 to 342 -> 364 [1] lasti
+  354 to 362 -> 364 [1] lasti
+
+  Code object: _normalise, argcount=1, nlocals=3
+ 71           0 RESUME                   0
+
+ 77           2 BUILD_LIST               0
+              4 STORE_FAST               1 (result)
+
+ 78           6 LOAD_FAST                0 (raw)
+              8 GET_ITER
+        >>   10 FOR_ITER                76 (to 164)
+             12 STORE_FAST               2 (item)
+
+ 79          14 LOAD_FAST                1 (result)
+             16 LOAD_METHOD              0 (append)
+
+ 80          38 LOAD_FAST                2 (item)
+             40 LOAD_CONST               1 ('start')
+             42 BINARY_SUBSCR
+
+ 81          52 LOAD_GLOBAL              3 (NULL + seconds_to_mmss)
+             64 LOAD_FAST                2 (item)
+             66 LOAD_CONST               1 ('start')
+             68 BINARY_SUBSCR
+             78 PRECALL                  1
+             82 CALL                     1
+
+ 82          92 LOAD_FAST                2 (item)
+             94 LOAD_CONST               2 ('text')
+             96 BINARY_SUBSCR
+            106 LOAD_METHOD              2 (strip)
+            128 PRECALL                  0
+            132 CALL                     0
+
+ 79         142 LOAD_CONST               3 (('start', 'timestamp', 'text'))
+            144 BUILD_CONST_KEY_MAP      3
+            146 PRECALL                  1
+            150 CALL                     1
+            160 POP_TOP
+            162 JUMP_BACKWARD           77 (to 10)
+
+ 84     >>  164 LOAD_FAST                1 (result)
+            166 RETURN_VALUE
